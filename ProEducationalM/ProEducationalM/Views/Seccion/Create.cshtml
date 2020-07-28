@@ -1,0 +1,41 @@
+﻿@model ProEducationalM.Models.Seccion
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <!-- ******************* EMPIEZA EL CONTENIDO ******************* -->
+
+        <div>
+            <div>
+                @Html.LabelFor(model => model.NombreSeccion)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.NombreSeccion)
+                @Html.ValidationMessageFor(model => model.NombreSeccion)
+            </div>
+        </div>
+
+        <div>
+            @Html.Hidden("ID",0)
+        </div>
+
+        <div>
+            <div>
+                <button id="SaveButton" type="submit">Guardar</button>
+            </div>
+        </div>
+    }
+</body>
+</html>
