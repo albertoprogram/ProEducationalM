@@ -1,0 +1,58 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NotFound</title>
+</head>
+<body>
+
+    <div>
+        <div style=" padding:20px;">
+            <h3>
+                Application Error: @ViewBag.Title
+            </h3>
+            <h4>
+                Sorry, The Page, You are Looking for is not found.
+                @ViewBag.Description
+            </h4>
+            <h6>@Html.ActionLink("Go Back To Home Page", "Create", "Seccion")</h6>
+            <br />
+            <br />
+        </div>
+    </div>
+
+    <div>
+        @{
+            if (Model != null && Model.Exception != null)
+            {
+                <h5>Here is some information you can pass on to the administrator</h5>
+                <h3>Path: ~/@string.Format("{0}/{1}", Model.ControllerName, Model.ActionName)</h3>
+                <h4>Error: @Model.Exception.GetType().Name</h4>
+                if (Request.IsLocal)
+                {
+                    <h4>Message: @Model.Exception.Message</h4>
+                    @*<h5>@Model.Exception.StackTrace</h5>*@
+                    <h1>
+                        <a href="javascript:history.back()"> Volver Atrás</a>
+                    </h1>
+
+                    @*<h1>
+                            <a href="javascript:history.back()"><img src="images/boton.jpg" height="33" width="100" alt="Botón"</a>
+                        </h1>*@
+
+                    @*<h1>
+                            <input type="button" onclick="history.back()" name="volver atrás" value="volver atrás">
+                        </h1>*@
+                }
+            }
+        }
+    </div>
+
+</body>
+</html>

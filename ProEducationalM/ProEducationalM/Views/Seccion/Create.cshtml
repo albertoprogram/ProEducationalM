@@ -7,8 +7,38 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    @*<meta name="viewport" content="width=device-width" />*@
+
     <title>Create</title>
+
+    @* Referencia a Bootstrap - Las siguientes 4 líneas *@
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+    <link href="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    @* Referencia a JQuery *@
+    <script src="~/Scripts/JQuery/jquery-3.5.1.min.js"></script>
+
+    @* Control de los mensajes a usuario *@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                //$(".divMensaje").fadeOut(1500);
+                $("#successMessage").remove();
+            }, 3000);
+
+            setTimeout(function () {
+                //$(".divMensaje").fadeOut(1500);
+                $("#errorMessage").remove();
+            }, 7000);
+
+            //setTimeout(function () {
+            //    $(".content2").fadeIn(1500);
+            //}, 6000);
+        });
+    </script>
+
 </head>
 <body>
     @using (Html.BeginForm())
@@ -17,25 +47,58 @@
 
         <!-- ******************* EMPIEZA EL CONTENIDO ******************* -->
 
-        <div>
-            <div>
-                @Html.LabelFor(model => model.NombreSeccion)
-            </div>
-            <div>
-                @Html.EditorFor(model => model.NombreSeccion)
-                @Html.ValidationMessageFor(model => model.NombreSeccion)
-            </div>
-        </div>
+        <div class="container border">
 
-        <div>
-            @Html.Hidden("ID",0)
-        </div>
-
-        <div>
-            <div>
-                <button id="SaveButton" type="submit">Guardar</button>
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(model => model.NombreSeccion)
+                </div>
+                <div class="col">
+                    @Html.EditorFor(model => model.NombreSeccion)
+                    @Html.ValidationMessageFor(model => model.NombreSeccion)
+                </div>
             </div>
+
+            <div>
+                @Html.Hidden("ID", 0)
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button id="SaveButton" type="submit">Guardar</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    @if (TempData["Exito"] != null)
+                    {
+                        <div class="alert alert-success" id="successMessage">
+                            @TempData["Exito"]
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    @if (TempData["ErrorMensaje"] != null)
+                    {
+                        <div class="alert alert-danger" id="errorMessage">
+                            @TempData["ErrorMensaje"]
+                        </div>
+                    }
+                </div>
+            </div>
+
         </div>
     }
+
+    <script src="~/Scripts/SeccionJs/Seccion.js"></script>
+
+    @* Referencia a Bootstrap - Las siguientes 3 líneas *@
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/popper.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

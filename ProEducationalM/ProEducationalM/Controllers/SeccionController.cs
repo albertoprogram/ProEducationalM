@@ -63,9 +63,7 @@ namespace ProEducationalM.Controllers
 
                     if (errorYNFromSQLServer == true)
                     {
-                        //TempData["ErrorMensaje"] = "Error recibido de SQL";
-
-                        //ExceptionHandling exceptionHandling = new ExceptionHandling();
+                        ExceptionHandling exceptionHandling = new ExceptionHandling();
 
                         //// Se escribe en log del browser
                         //string msg = exceptionHandling.propTemp1.ToString().Replace("'", ""); //Prevent js parsing errors. Could also add in an escape character instead if you really want the 's.
@@ -73,16 +71,28 @@ namespace ProEducationalM.Controllers
                         //Response.Write("<script>console.log(" + "'" + msg + "'" + ");</script>");
                         //Response.Write("<script>console.log('PRUEBA');</script>");
 
-                        //exceptionHandling.HandleSQLException(
-                        //    errorNumberFromSQLServer,
-                        //    errorSeverityFromSQLServer,
-                        //    errorStatusFromSQLServer,
-                        //    errorProcedureFromSQLServer,
-                        //    errorLineFromSQLServer,
-                        //    errorMessageFromSQLServer,
-                        //    originClass,
-                        //    originMethod,
-                        //    inputValues);
+                        exceptionHandling.HandleSQLException(
+                            errorNumberFromSQLServer,
+                            errorSeverityFromSQLServer,
+                            errorStatusFromSQLServer,
+                            errorProcedureFromSQLServer,
+                            errorLineFromSQLServer,
+                            errorMessageFromSQLServer,
+                            originClass,
+                            originMethod,
+                            inputValues);
+
+                        Session["errorUniqueSeccion"] = errorMessageFromSQLServer.IndexOf("UNIQUE KEY");
+
+                        if (Convert.ToInt16(Session["errorUniqueSeccion"]) >= 0)
+                        {
+                            TempData["ErrorMensaje"] = "La sección / paralelo '" + seccion.NombreSeccion + "' ya existe";
+                        }
+                        else
+                        {
+                            TempData["ErrorMensaje"] = "Error recibido desde la base de datos";
+                        }
+
                     }
                     else
                     {

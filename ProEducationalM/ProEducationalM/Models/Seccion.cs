@@ -10,9 +10,9 @@ namespace ProEducationalM.Models
     {
         public short ID { get; set; }
 
-        [Display(Name =@"Sección/Paralelo")]
+        [Display(Name = @"Sección/Paralelo")]
         [Required(ErrorMessage = @"Por favor, ingrese la sección / paralelo")]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = @"La longitud máxima es 50 caracteres")]
         public string NombreSeccion { get; set; }
     }
 }

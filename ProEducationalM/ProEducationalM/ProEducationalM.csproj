@@ -96,12 +96,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.min.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-reboot.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-reboot.min.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap.min.css" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.bundle.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\popper.min.js" />
+    <Content Include="Scripts\JQuery\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\SeccionJs\Seccion.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\SeccionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -109,12 +124,27 @@
     <Compile Include="Models\ProEducationalMDBContext.cs" />
     <Compile Include="Models\Seccion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ExceptionHandling.cs" />
     <Compile Include="Services\SeccionServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Seccion\Create.cshtml" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-reboot.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap.min.css.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.min.js.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Errores\Error.cshtml" />
+    <Content Include="Views\Errores\NotFound.cshtml" />
+    <Content Include="Views\Error\_ErrorPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -140,7 +170,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59663</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59663/</IISUrl>
+          <IISUrl>http://localhost:59664/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
