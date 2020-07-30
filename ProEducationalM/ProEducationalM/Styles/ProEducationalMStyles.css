@@ -1,0 +1,12 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #6D7384;
+}
+
+#contenedor {
+    background-color: #D3E8F5;
+    margin: 15px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #59627B;
+}
