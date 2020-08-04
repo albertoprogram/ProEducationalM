@@ -12,7 +12,7 @@ body {
 
 #contenedor {
     background-color: #D3E8F5;
-    margin: 1em;
+    /*margin: 1em;*/
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #59627B;
@@ -27,11 +27,11 @@ body {
     height: 3em;
 }
 
-#contenedor2 {
+/*.contenedor2 {
     margin-left: 2em;
-}
+}*/
 
 .contenedor_boton {
-    margin-right: 2em;
+    /*margin-right: 2em;*/
     text-align: right;
 }

@@ -58,7 +58,7 @@
 
             <div class="row" id="contenedor">
                 <div class="col">
-                    <h1>Secciones-Paralelos</h1>
+                    <h1>Paralelos</h1>
                 </div>
             </div>
 
@@ -67,16 +67,22 @@
                 </div>
             </div>
 
-            <div class="row" id="contenedor2">
-                <div class="col">
-                    @Html.LabelFor(model => model.NombreSeccion)
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-2  col-lg-1 col-xl-1">
+                </div>
+                <div class="col-12 col-sm-12 col-md-10 col-lg-11 col-xl-11 lead">
+                    @Html.LabelFor(model => model.NombreSeccion, htmlAttributes: new { @class = "control-label" })
                 </div>
             </div>
 
-            <div class="row" id="contenedor2">
-                <div class="col">
-                    @Html.EditorFor(model => model.NombreSeccion)
-                    @Html.ValidationMessageFor(model => model.NombreSeccion)
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-2  col-lg-1 col-xl-1">
+                </div>
+                <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6">
+                    @Html.EditorFor(model => model.NombreSeccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreSeccion, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-12 col-sm-12 col-md-2  col-lg-5 col-xl-5">
                 </div>
             </div>
 
@@ -91,7 +97,7 @@
 
             <div class="row contenedor_boton">
                 <div class="col">
-                    <button id="SaveButton" type="submit">Guardar</button>
+                    <button id="SaveButton" type="submit" class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 btn btn-primary">Guardar</button>
                 </div>
             </div>
 
