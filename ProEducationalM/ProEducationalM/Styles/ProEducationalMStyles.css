@@ -11,11 +11,13 @@ body {
 }
 
 #contenedor {
-    background-color: #D3E8F5;
+    /*background-color: #D3E8F5;*/
+    background-color: #0FC6EA;
     /*margin: 1em;*/
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #59627B;
+    /*color: #59627B;*/
+    color: #FFFFFF;
 }
 
 #fila_superior_1 {
@@ -31,7 +33,27 @@ body {
     margin-left: 2em;
 }*/
 
-.contenedor_boton {
-    /*margin-right: 2em;*/
+/*.contenedor_boton {
     text-align: right;
+}*/
+
+#successMessage {
+    text-align: center;
+}
+
+#errorMessage {
+    text-align: center;
+}
+
+#SaveButton {
+    width: 100%;
+}
+
+div[class^='col-'] {
+    border: 5px solid white;
+}
+
+.LabelNombreSeccion {
+    color: #0FC6EA;
+    font-weight: bold;
 }

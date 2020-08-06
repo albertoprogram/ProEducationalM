@@ -71,7 +71,7 @@
                 <div class="col-12 col-sm-12 col-md-2  col-lg-1 col-xl-1">
                 </div>
                 <div class="col-12 col-sm-12 col-md-10 col-lg-11 col-xl-11 lead">
-                    @Html.LabelFor(model => model.NombreSeccion, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.NombreSeccion, htmlAttributes: new { @class = "control-label LabelNombreSeccion" })
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
                 <div class="col-12 col-sm-12 col-md-2  col-lg-1 col-xl-1">
                 </div>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6">
-                    @Html.EditorFor(model => model.NombreSeccion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.NombreSeccion, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese un Paralelo" } })
                     @Html.ValidationMessageFor(model => model.NombreSeccion, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-12 col-sm-12 col-md-2  col-lg-5 col-xl-5">
@@ -95,36 +95,65 @@
                 </div>
             </div>
 
-            <div class="row contenedor_boton">
-                <div class="col">
-                    <button id="SaveButton" type="submit" class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 btn btn-primary">Guardar</button>
+            <div class="row flex-column-reverse flex-md-row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-6 col-xl-6">
+                </div>
+                <div class="col-12 order-last col-sm-12 order-last col-md-1 order-1 col-lg-1 order-1 col-xl-1 order-1">
+                    <button id="ReturnButton" type="button" class="btn btn-link btn-block"
+                            onclick="location.href='@Url.Action("Index","Home")'">
+                        Volver
+                    </button>
+                </div>
+                <div class="col-12 order-2 col-sm-12 order-2 col-md-3 order-2 col-lg-2 order-2 col-xl-2 order-2">
+                    <button id="CancelButton" type="button" class="float-right btn btn-light btn-block">
+                        Cancelar
+                    </button>
+                </div>
+                <div class="col-12 order-first col-sm-12 order-first col-md-4 order-12 col-lg-3 order-12 col-xl-3 order-12">
+                    <button id="SaveButton" type="submit" class="float-right btn btn-success">Guardar</button>
                 </div>
             </div>
 
-            <div class="row">
-                <div>
-                    @if (TempData["Exito"] != null)
-                    {
-                        <div class="alert alert-success" id="successMessage">
-                            @TempData["Exito"]
-                        </div>
-                    }
-                </div>
+            <div class="row" id="successMessage">
+                @if (TempData["Exito"] != null)
+                {
+                    <div class="col-7"></div>
+                    <div class="col-5 alert alert-success">
+                        @TempData["Exito"]
+                    </div>
+                }
             </div>
 
-            <div class="row">
-                <div>
-                    @if (TempData["ErrorMensaje"] != null)
-                    {
-                        <div class="alert alert-danger" id="errorMessage">
-                            @TempData["ErrorMensaje"]
-                        </div>
-                    }
-                </div>
+            <div class="row" id="errorMessage">
+                @if (TempData["ErrorMensaje"] != null)
+                {
+                    <div class="col-7"></div>
+                    <div class="col-5 alert alert-danger">
+                        @TempData["ErrorMensaje"]
+                    </div>
+                }
             </div>
 
         </div>
     }
+
+    @* Para limpiar asignar valor de input en carga de página *@
+    <script type="text/javascript">
+        $('input[type="text"]').val('');
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#CancelButton').on('click', function (e) {
+                if (e.which === 13 || e.type === 'click') {
+                    //Limpia caja de texto
+                    $('input[type="text"]').val('');
+                    //Pone foco
+                    document.getElementById('NombreSeccion').focus();
+                }
+            });
+        });
+    </script>
 
     <script src="~/Scripts/SeccionJs/Seccion.js"></script>
 

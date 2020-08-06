@@ -86,7 +86,7 @@ namespace ProEducationalM.Controllers
 
                         if (Convert.ToInt16(Session["errorUniqueSeccion"]) >= 0)
                         {
-                            TempData["ErrorMensaje"] = "La sección / paralelo '" + seccion.NombreSeccion + "' ya existe";
+                            TempData["ErrorMensaje"] = "El Paralelo '" + seccion.NombreSeccion + "' ya existe";
                         }
                         else
                         {
@@ -96,7 +96,7 @@ namespace ProEducationalM.Controllers
                     }
                     else
                     {
-                        TempData["Exito"] = "Registro insertado con éxito";
+                        TempData["Exito"] = "El Paralelo '" + seccion.NombreSeccion + "' ha sido insertado con éxito";
                     }
 
                 }
