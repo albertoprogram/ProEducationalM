@@ -47,6 +47,7 @@ body {
 
 #SaveButton {
     width: 100%;
+    font-weight: bold;
 }
 
 div[class^='col-'] {
@@ -54,6 +55,22 @@ div[class^='col-'] {
 }
 
 .LabelNombreSeccion {
-    color: #0FC6EA;
+    /*color: #0FC6EA;*/
+    color: #7D8E9C;
+    font-weight: bold;
+    font-size:x-large;
+}
+
+.TxtNombreSeccion {
+    font-size: large;
+}
+
+#CancelButton {
+    color: #7D8E9C;
+    font-weight: bold;
+}
+
+#ReturnButton {
+    color: #7D8E9C;
     font-weight: bold;
 }
