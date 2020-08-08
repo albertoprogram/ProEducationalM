@@ -108,9 +108,12 @@
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\bootstrap.min.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\popper.min.js" />
+    <Content Include="Scripts\Generales\Caracteres.js" />
     <Content Include="Scripts\JQuery\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\pace\pace.min.js" />
     <Content Include="Scripts\SeccionJs\Seccion.js" />
     <Content Include="Styles\ProEducationalMStyles.css" />
+    <Content Include="Styles\Themes_pace\CornerIndicator.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

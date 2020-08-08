@@ -19,6 +19,10 @@
     @* Referencia a JQuery *@
     <script src="~/Scripts/JQuery/jquery-3.5.1.min.js"></script>
 
+    @* Las siguientes dos líneas referencian la barra de carga de la página *@
+    <script src="~/Scripts/pace/pace.min.js"></script>
+    <link href="~/Styles/Themes_pace/CornerIndicator.css" rel="stylesheet" />
+
     @* Referencia a CSS de la página *@
     <link href="~/Styles/ProEducationalMStyles.css" rel="stylesheet" type="text/css" />
 
@@ -28,12 +32,12 @@
             setTimeout(function () {
                 //$(".divMensaje").fadeOut(1500);
                 $("#successMessage").remove();
-            }, 7000);
+            }, 3000);
 
             setTimeout(function () {
                 //$(".divMensaje").fadeOut(1500);
                 $("#errorMessage").remove();
-            }, 7000);
+            }, 3000);
 
             //setTimeout(function () {
             //    $(".content2").fadeIn(1500);
@@ -43,7 +47,7 @@
 
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreateSeccion" }))
     {
         @Html.AntiForgeryToken()
 
@@ -51,7 +55,7 @@
 
         <div class="container">
 
-            <div class="row" id="fila_superior_1">
+            <div class="row d-none d-lg-block" id="fila_superior_1">
                 <div class="col">
                 </div>
             </div>
@@ -62,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="row" id="fila_superior_2">
+            <div class="row d-none d-lg-block" id="fila_superior_2">
                 <div class="col">
                 </div>
             </div>
@@ -79,7 +83,7 @@
                 <div class="col-12 col-sm-12 col-md-2  col-lg-1 col-xl-1">
                 </div>
                 <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6">
-                    @Html.EditorFor(model => model.NombreSeccion, new { htmlAttributes = new { @class = "form-control TxtNombreSeccion", placeholder = "Ingrese un Paralelo", maxlength = "50" } })
+                    @Html.EditorFor(model => model.NombreSeccion, new { htmlAttributes = new { @class = "form-control TxtNombreSeccion", placeholder = "Ingrese un Paralelo", maxlength = "20" } })
                     @Html.ValidationMessageFor(model => model.NombreSeccion, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-12 col-sm-12 col-md-2  col-lg-5 col-xl-5">
@@ -90,7 +94,7 @@
                 @Html.Hidden("ID", 0)
             </div>
 
-            <div class="row" id="fila_superior_2">
+            <div class="row d-none d-lg-block" id="fila_superior_2">
                 <div class="col">
                 </div>
             </div>
@@ -110,15 +114,18 @@
                     </button>
                 </div>
                 <div class="col-12 order-first col-sm-12 order-first col-md-4 order-12 col-lg-3 order-12 col-xl-3 order-12">
-                    <button id="SaveButton" type="submit" class="float-right btn btn-success">Guardar</button>
+                    <button id="SaveButton" type="submit" class="float-right btn btn-success"
+                            disabled>
+                        Guardar
+                    </button>
                 </div>
             </div>
 
             <div class="row" id="successMessage">
                 @if (TempData["Exito"] != null)
                 {
-                    <div class="col-7"></div>
-                    <div class="col-5 alert alert-success">
+                    <div class="col-12 col-xl-5"></div>
+                    <div class="col-12 col-xl-7  alert alert-success">
                         @TempData["Exito"]
                     </div>
                 }
@@ -127,8 +134,8 @@
             <div class="row" id="errorMessage">
                 @if (TempData["ErrorMensaje"] != null)
                 {
-                    <div class="col-7"></div>
-                    <div class="col-5 alert alert-danger">
+                    <div class="col-12 col-xl-5"></div>
+                    <div class="col-12 col-xl-7 alert alert-danger">
                         @TempData["ErrorMensaje"]
                     </div>
                 }
@@ -149,6 +156,8 @@
                 if (e.which === 13 || e.type === 'click') {
                     //Limpia caja de texto
                     $('input[type="text"]').val('');
+                    //Deshabilita botón Guardar
+                    $('#SaveButton').attr('disabled', 'disabled');
                     //Pone foco
                     document.getElementById('NombreSeccion').focus();
                 }
@@ -193,7 +202,43 @@
         window.onpopstate = function () { history.go(1); };
     </script>
 
+    @*Autocompletado deshabilitado*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#NombreSeccion').attr("autocomplete", "off");
+        })
+    </script>
+
+    <script type="text/javascript">
+
+        //Función para habilitar deshabilitar botón submit guardar desde caja de texto
+        $('#NombreSeccion').on('change keyup paste click keypress', function (e) {
+
+            let cadena = document.getElementById("NombreSeccion").value;
+
+            document.getElementById("NombreSeccion").value = TratamientoCaracteres(cadena);
+
+            if ($('#NombreSeccion').val() != '') {
+                $('#SaveButton').removeAttr('disabled');
+            }
+            else {
+                $('#SaveButton').attr('disabled', 'disabled');
+            }
+
+            if ((e.keyCode === 13 && $('#NombreSeccion').val() === '') ||
+                (e.type === 'click' && $('#NombreSeccion').val() === '')) {
+
+                $('#SaveButton').attr("disabled", true);
+
+            }
+
+        });
+
+    </script>
+
     <script src="~/Scripts/SeccionJs/Seccion.js"></script>
+
+    <script src="~/Scripts/Generales/Caracteres.js"></script>
 
     @* Referencia a Bootstrap - Las siguientes 3 líneas *@
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
