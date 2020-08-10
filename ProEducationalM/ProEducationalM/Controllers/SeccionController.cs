@@ -30,6 +30,10 @@ namespace ProEducationalM.Controllers
         {
             //System.Threading.Thread.Sleep(10000);
 
+            ExceptionHandling exceptionHandling = new ExceptionHandling();
+
+            string inputValues = "Seccion=" + seccion.NombreSeccion + " ";
+
             try
             {
 
@@ -47,9 +51,6 @@ namespace ProEducationalM.Controllers
                     string errorMessageFromSQLServer;
                     string originClass;
                     string originMethod;
-                    string inputValues;
-
-                    inputValues = "Seccion=" + seccion.NombreSeccion + " ";
 
                     seccionServices.InsertSeccion(seccion,
                         out idSeccionFromSQLServer,
@@ -65,8 +66,6 @@ namespace ProEducationalM.Controllers
 
                     if (errorYNFromSQLServer == true)
                     {
-                        ExceptionHandling exceptionHandling = new ExceptionHandling();
-
                         //// Se escribe en log del browser
                         //string msg = exceptionHandling.propTemp1.ToString().Replace("'", ""); //Prevent js parsing errors. Could also add in an escape character instead if you really want the 's.
                         //msg = msg.Replace("\\", "-");
@@ -107,31 +106,34 @@ namespace ProEducationalM.Controllers
                 //return RedirectToAction("Create");
             }
 
-            catch (SqlException ex)
-            {
-                if (ex.InnerException?.InnerException is SqlException exSql &&
-                    exSql.Number == 2601)
-                {
-                    TempData["ErrorMensaje"] = "La sección " + "'" + seccion.NombreSeccion + "'" + " ya está registrado";
-                }
+            //catch (SqlException ex)
+            //{
+            //    //if (ex.InnerException?.InnerException is SqlException exSql &&
+            //    //    exSql.Number == 2601)
+            //    //{
+            //    //    TempData["ErrorMensaje"] = "La sección " + "'" + seccion.NombreSeccion + "'" + " ya está registrado";
+            //    //}
 
-                else if (ex.InnerException?.InnerException is SqlException exSql2 &&
-                    exSql2.Number == 208)
-                {
-                    TempData["ErrorMensaje"] = "La tabla destino es inválida";
-                }
-                else
-                {
-                    TempData["ErrorMensaje"] = "Error específico SQL no detectado";
-                }
-            }
+            //    //else if (ex.InnerException?.InnerException is SqlException exSql2 &&
+            //    //    exSql2.Number == 208)
+            //    //{
+            //    //    TempData["ErrorMensaje"] = "La tabla destino es inválida";
+            //    //}
+            //    //else
+            //    //{
+            //    //    TempData["ErrorMensaje"] = "Error específico SQL no detectado";
+            //    //}
+            //}
             catch (Exception generalException)
             {
+                exceptionHandling.HandleGeneralException(
+                    generalException.Message,
+                    generalException.InnerException.ToString(),
+                    this.GetType().Name,
+                    System.Reflection.MethodBase.GetCurrentMethod().Name,
+                    inputValues);
 
                 TempData["ErrorMensaje"] = "Error general";
-
-                //ModelState.AddModelError(string.Empty,
-                //   "An error occured - please contact your system administrator.");
             }
             finally
             {
