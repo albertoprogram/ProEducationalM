@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images_Icons\mJotv.gif" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.css" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.min.css" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-reboot.css" />
@@ -174,7 +175,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59663</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59664/</IISUrl>
+          <IISUrl>http://localhost:59665/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

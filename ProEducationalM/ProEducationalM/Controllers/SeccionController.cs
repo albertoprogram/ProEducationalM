@@ -28,6 +28,8 @@ namespace ProEducationalM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Seccion seccion)
         {
+            //System.Threading.Thread.Sleep(10000);
+
             try
             {
 
