@@ -28,7 +28,7 @@ namespace ProEducationalM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Seccion seccion)
         {
-            //System.Threading.Thread.Sleep(10000);
+            //System.Threading.Thread.Sleep(3000);
 
             ExceptionHandling exceptionHandling = new ExceptionHandling();
 

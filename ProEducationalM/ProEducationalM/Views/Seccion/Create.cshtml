@@ -57,8 +57,7 @@
     <style type="text/css">
         /* Clearable text inputs */
         .clearable {
-            background: #fff no-repeat right -10px center;
-            background-image: url('../../Images_Icons/mJotv.gif');
+            background: #fff url('../../Images_Icons/mJotv.gif') no-repeat right -10px center;
             border: 1px solid #999;
             padding: 3px 18px 3px 4px; /* Use the same right padding (18) in jQ! */
             border-radius: 3px;
@@ -79,6 +78,12 @@
                 height: 0;
             }
         /* Remove IE default X */
+    </style>
+
+    <style type="text/css">
+        .btnDeshabilitado {
+            background-color: #BDBDBD;
+        }
     </style>
 
 </head>
@@ -150,7 +155,7 @@
                     </button>
                 </div>
                 <div class="col-12 order-first col-sm-12 order-first col-md-4 order-12 col-lg-3 order-12 col-xl-3 order-12">
-                    <button id="SaveButton" type="submit" class="float-right btn btn-success"
+                    <button id="SaveButton" type="submit" class="float-right btn btnDeshabilitado"
                             disabled>
                         Guardar
                     </button>
@@ -194,6 +199,8 @@
                     $('input[type="text"]').val('');
                     //Deshabilita botón Guardar
                     $('#SaveButton').attr('disabled', 'disabled');
+                    $('#SaveButton').removeClass('btn-success');
+                    $('#SaveButton').addClass('btnDeshabilitado');
                     //Pone foco
                     document.getElementById('NombreSeccion').focus();
                 }
@@ -248,25 +255,37 @@
     <script type="text/javascript">
 
         //Función para habilitar deshabilitar botón submit guardar desde caja de texto
-        $('#NombreSeccion').on('change keyup paste click keypress', function (e) {
+        $('#NombreSeccion').on('change keyup paste click', function (e) {
 
             let cadena = document.getElementById("NombreSeccion").value;
 
             document.getElementById("NombreSeccion").value = TratamientoCaracteres(cadena);
 
+            var longitudTexto = $(this).val().length;
+
+            if (longitudTexto > 20) {
+                $(this).val($(this).val().substr(0, 20));
+            }
+
             if ($('#NombreSeccion').val() != '') {
-                $('#SaveButton').removeAttr('disabled');
+
+                if ($('form').hasClass('disabled')) {
+                    $('#SaveButton').attr('disabled', 'disabled');
+                    $('#SaveButton').removeClass('btn-success');
+                    $('#SaveButton').addClass('btnDeshabilitado');
+                }
+                else {
+                    $('#SaveButton').removeAttr('disabled');
+                    $('#SaveButton').removeClass('btnDeshabilitado');
+                    $('#SaveButton').addClass('btn-success');
+                }
+
             }
             else {
                 $('#SaveButton').attr('disabled', 'disabled');
+                $('#SaveButton').removeClass('btn-success');
+                $('#SaveButton').addClass('btnDeshabilitado');
             }
-
-            //if ((e.keyCode === 13 && $('#NombreSeccion').val() === '') ||
-            //    (e.type === 'click' && $('#NombreSeccion').val() === '')) {
-
-            //    $('#SaveButton').attr("disabled", true);
-
-            //}
 
         });
 
@@ -275,12 +294,19 @@
     @* Función que permite deshabilitar formulario al momento de hacer submit *@
     <script type="text/javascript">
         $('form').submit(function (e) {
+
             // if the form is disabled don't allow submit
             if ($(this).hasClass('disabled')) {
                 e.preventDefault();
                 return;
             }
+
             $(this).addClass('disabled');
+
+            $('#SaveButton').addClass('btnDeshabilitado');
+
+            $('#SaveButton').removeClass('btn-success');
+
         });
     </script>
 
@@ -309,10 +335,12 @@
             ev.preventDefault();
             $(this).removeClass('x onX').val('').change();
             $('#SaveButton').attr('disabled', 'disabled');
+            $('#SaveButton').removeClass('btn-success');
+            $('#SaveButton').addClass('btnDeshabilitado');
         });
 
-            // $('.clearable').trigger("input");
-            // Uncomment the line above if you pre-fill values from LS or server
+                                                                        // $('.clearable').trigger("input");
+                                                                        // Uncomment the line above if you pre-fill values from LS or server
 
     </script>
 
