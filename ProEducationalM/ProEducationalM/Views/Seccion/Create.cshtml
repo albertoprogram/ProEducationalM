@@ -261,6 +261,10 @@
 
             document.getElementById("NombreSeccion").value = TratamientoCaracteres(cadena);
 
+            $(this).val($(this).val().trimLeft());
+
+            $(this).val($(this).val().toUpperCase());
+
             var longitudTexto = $(this).val().length;
 
             if (longitudTexto > 20) {
@@ -339,8 +343,8 @@
             $('#SaveButton').addClass('btnDeshabilitado');
         });
 
-                                                                        // $('.clearable').trigger("input");
-                                                                        // Uncomment the line above if you pre-fill values from LS or server
+                                                                                // $('.clearable').trigger("input");
+                                                                                // Uncomment the line above if you pre-fill values from LS or server
 
     </script>
 
