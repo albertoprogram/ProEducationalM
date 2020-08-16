@@ -14,7 +14,33 @@ namespace ProEducationalM.Controllers
         // GET: Seccion
         public ActionResult Index()
         {
-            return View();
+            SeccionServices seccionServices = new SeccionServices();
+
+            int pagina = 0;
+            int cantidadRegistros = 10;
+            bool errorYNFromSQLServer;
+            int errorNumberFromSQLServer;
+            int errorSeverityFromSQLServer;
+            int errorStatusFromSQLServer;
+            string errorProcedureFromSQLServer;
+            int errorLineFromSQLServer;
+            string errorMessageFromSQLServer;
+            string originClass;
+            string originMethod;
+
+            var SeccionModel = seccionServices.GetAllSecciones(pagina,
+                cantidadRegistros,
+                out errorYNFromSQLServer,
+                    out errorNumberFromSQLServer,
+                    out errorSeverityFromSQLServer,
+                    out errorStatusFromSQLServer,
+                    out errorProcedureFromSQLServer,
+                    out errorLineFromSQLServer,
+                    out errorMessageFromSQLServer,
+                    out originClass,
+                    out originMethod);
+
+            return View(SeccionModel);
         }
 
         // GET
