@@ -16,21 +16,27 @@ namespace ProEducationalM.Controllers
         {
             SeccionServices seccionServices = new SeccionServices();
 
-            int pagina = 0;
-            int cantidadRegistros = 10;
-            bool errorYNFromSQLServer;
-            int errorNumberFromSQLServer;
-            int errorSeverityFromSQLServer;
-            int errorStatusFromSQLServer;
-            string errorProcedureFromSQLServer;
-            int errorLineFromSQLServer;
-            string errorMessageFromSQLServer;
-            string originClass;
-            string originMethod;
+            ExceptionHandling exceptionHandling = new ExceptionHandling();
 
-            var SeccionModel = seccionServices.GetAllSecciones(pagina,
-                cantidadRegistros,
-                out errorYNFromSQLServer,
+            string inputValues = "ValoresPaginado=";
+
+            try
+            {
+                int pagina = 10;
+                int cantidadRegistros = 10;
+                bool errorYNFromSQLServer;
+                int errorNumberFromSQLServer;
+                int errorSeverityFromSQLServer;
+                int errorStatusFromSQLServer;
+                string errorProcedureFromSQLServer;
+                int errorLineFromSQLServer;
+                string errorMessageFromSQLServer;
+                string originClass;
+                string originMethod;
+
+                var SeccionModel = seccionServices.GetAllSecciones(pagina,
+                    cantidadRegistros,
+                    out errorYNFromSQLServer,
                     out errorNumberFromSQLServer,
                     out errorSeverityFromSQLServer,
                     out errorStatusFromSQLServer,
@@ -40,7 +46,49 @@ namespace ProEducationalM.Controllers
                     out originClass,
                     out originMethod);
 
-            return View(SeccionModel);
+                if (errorYNFromSQLServer == true)
+                {
+                    exceptionHandling.HandleSQLException(
+                        errorNumberFromSQLServer,
+                        errorSeverityFromSQLServer,
+                        errorStatusFromSQLServer,
+                        errorProcedureFromSQLServer,
+                        errorLineFromSQLServer,
+                        errorMessageFromSQLServer,
+                        originClass,
+                        originMethod,
+                        inputValues);
+
+                    TempData["ErrorMensaje_Index_Seccion"] = "Error al intentar obtener datos";
+
+                }
+                else
+                {
+                    TempData["Exito_Index_Seccion"] = "Devolución de datos con éxito";
+                }
+
+                return View(SeccionModel);
+
+            }
+
+            catch (Exception generalException)
+            {
+                exceptionHandling.HandleGeneralException(
+                    generalException.Message,
+                    generalException.InnerException.ToString(),
+                    this.GetType().Name,
+                    System.Reflection.MethodBase.GetCurrentMethod().Name,
+                    inputValues);
+
+                TempData["ErrorMensaje_Index_Seccion"] = "Error general";
+
+                return View();
+            }
+            finally
+            {
+
+            }
+
         }
 
         // GET

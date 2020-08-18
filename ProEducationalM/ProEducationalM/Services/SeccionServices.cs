@@ -120,7 +120,7 @@ namespace ProEducationalM.Services
         }
         #endregion
 
-        public List<string> GetAllSecciones(
+        public IEnumerable<Seccion> GetAllSecciones(
             int pagina,
             int cantidadRegistros,
             out bool errorYNFromSQLServer,
@@ -187,29 +187,46 @@ namespace ProEducationalM.Services
                     Direction = ParameterDirection.Output
                 };
 
-                List<string> secciones = new List<string>();
+                //string storedProcedure = "DECLARE " +
+                //    "@pagina INT," +
+                //    "@cantidadRegistros INT," +
+                //    "@errorYN BIT," +
+                //    "@errorNumber INT," +
+                //    "@errorSeverity INT," +
+                //    "@errorStatus INT," +
+                //    "@errorProcedure VARCHAR(250)," +
+                //    "@errorLine INT," +
+                //    "@errorMessage VARCHAR(8000) " +
+                //    "EXEC GetAllSecciones " +
+                //    pagina + "," +
+                //    cantidadRegistros + "," +
+                //    "@errorYN OUTPUT," +
+                //    "@errorNumber OUTPUT," +
+                //    "@errorSeverity OUTPUT," +
+                //    "@errorStatus OUTPUT," +
+                //    "@errorProcedure OUTPUT," +
+                //    "@errorLine OUTPUT," +
+                //    "@errorMessage OUTPUT";
 
-                secciones = db.Database.SqlQuery<string>("GetAllSecciones " +
-                "@pagina," +
-                "@cantidadRegistros," +
-                "@idSeccion OUTPUT," +
-                "@errorYN OUTPUT," +
-                "@errorNumber OUTPUT," +
-                "@errorSeverity OUTPUT," +
-                "@errorStatus OUTPUT," +
-                "@errorProcedure OUTPUT," +
-                "@errorLine OUTPUT," +
-                "@errorMessage OUTPUT",
-                new SqlParameter("@pagina", pagina),
-                new SqlParameter("@cantidadRegistros", cantidadRegistros),
-                errorYN,
-                errorNumber,
-                errorSeverity,
-                errorStatus,
-                errorProcedure,
-                errorLine,
-                errorMessage
-                ).ToList();
+                IEnumerable<Seccion> secciones = db.Database.SqlQuery<Seccion>("GetAllSecciones " +
+                    "@pagina," +
+                    "@cantidadRegistros," +
+                    "@errorYN OUTPUT," +
+                    "@errorNumber OUTPUT," +
+                    "@errorSeverity OUTPUT," +
+                    "@errorStatus OUTPUT," +
+                    "@errorProcedure OUTPUT," +
+                    "@errorLine OUTPUT," +
+                    "@errorMessage OUTPUT",
+                    new SqlParameter("@pagina", pagina),
+                    new SqlParameter("@cantidadRegistros", cantidadRegistros),
+                    errorYN,
+                    errorNumber,
+                    errorSeverity,
+                    errorStatus,
+                    errorProcedure,
+                    errorLine,
+                    errorMessage).ToList();
 
                 errorYNFromSQLServer = Convert.ToBoolean(errorYN.Value);
                 errorNumberFromSQLServer = Convert.ToInt32(errorNumber.Value);

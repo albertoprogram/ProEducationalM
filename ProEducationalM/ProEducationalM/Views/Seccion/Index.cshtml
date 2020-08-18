@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<ProEducationalM.Models.Seccion>
 @{
     Layout = null;
 }
@@ -7,11 +7,153 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+
+    @* Referencia a Bootstrap - Las siguientes 4 líneas *@
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+    <link href="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    @* Referencia a JQuery *@
+    <script src="~/Scripts/JQuery/jquery-3.5.1.min.js"></script>
+
+    @* Las siguientes dos líneas referencian la barra de carga de la página *@
+    <script src="~/Scripts/pace/pace.min.js"></script>
+    <link href="~/Styles/Themes_pace/CornerIndicator.css" rel="stylesheet" />
+
+    @* Referencia a CSS de la página *@
+    <link href="~/Styles/ProEducationalMStyles.css" rel="stylesheet" type="text/css" />
+
+    @* Control de los mensajes a usuario *@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setTimeout(function () {
+                //$(".divMensaje").fadeOut(1500);
+                $("#successMessage").remove();
+            }, 3000);
+
+            setTimeout(function () {
+                //$(".divMensaje").fadeOut(1500);
+                $("#errorMessage").remove();
+            }, 3000);
+
+            //setTimeout(function () {
+            //    $(".content2").fadeIn(1500);
+            //}, 6000);
+        });
+    </script>
+
+    @* Style CSS para el momento de hacer submit del form *@
+    <style type="text/css">
+        form.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
+
+    @* Style CSS para limpiar cajas de texto con X incorporado *@
+    <style type="text/css">
+        /* Clearable text inputs */
+        .clearable {
+            background: #fff url('../../Images_Icons/mJotv.gif') no-repeat right -10px center;
+            border: 1px solid #999;
+            padding: 3px 18px 3px 4px; /* Use the same right padding (18) in jQ! */
+            border-radius: 3px;
+            transition: background 0.4s;
+        }
+
+            .clearable.x {
+                background-position: right 5px center;
+            }
+            /* (jQ) Show icon */
+            .clearable.onX {
+                cursor: pointer;
+            }
+            /* (jQ) hover cursor style */
+            .clearable::-ms-clear {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+        /* Remove IE default X */
+    </style>
+
+    <style type="text/css">
+        .btnDeshabilitado {
+            background-color: #BDBDBD;
+        }
+    </style>
+
 </head>
 <body>
-    <div> 
+
+    <div class="container">
+
+        <div class="row d-none d-lg-block" id="fila_superior_1">
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row" id="contenedor">
+            <div class="col">
+                <h1>Paralelos</h1>
+            </div>
+        </div>
+
+        <div class="row d-none d-lg-block" id="fila_superior_2">
+            <div class="col">
+            </div>
+        </div>
+
+        <p>@Html.ActionLink("Create New", "Create")</p>
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreSeccion)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreSeccion)
+                    </td>
+                </tr>
+            }
+        </table>
+
     </div>
+
+    @* Función que impide que se vaya atrás con las teclas Backspace o Delete *@
+    <script type="text/javascript">
+        window.addEventListener('keydown', function (e) {
+            var key = e.keyCode || e.which;
+            if (key == 8 /*BACKSPACE*/ || key == 46/*DELETE*/) {
+                var len = window.location.href.length;
+                if (window.location.href[len - 1] != '#') window.location.href += "#";
+            }
+        }, false);
+    </script>
+
+    @* Función que impide volver atrás con el botón del navegador *@
+    @* En Chrome funciona *@
+    @* En Firefox funciona *@
+    @* En Firefox Developer Edition funciona *@
+    @* En Internet Explorer funciona *@
+    @* En Edge funciona *@
+    @* En Opera funciona *@
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        history.back();
+        history.forward();
+        window.onpopstate = function () { history.go(1); };
+    </script>
+
+    @* Referencia a Bootstrap - Las siguientes 3 líneas *@
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/popper.min.js"></script>
+    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 </body>
 </html>
