@@ -87,44 +87,58 @@
 
 </head>
 <body>
+    @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
 
-    <div class="container">
-
-        <div class="row d-none d-lg-block" id="fila_superior_1">
-            <div class="col">
+            <div class="row d-none d-lg-block" id="fila_superior_1">
+                <div class="col">
+                </div>
             </div>
-        </div>
 
-        <div class="row" id="contenedor">
-            <div class="col">
-                <h1>Paralelos</h1>
+            <div class="row" id="contenedor">
+                <div class="col">
+                    <h1>Paralelos</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="row d-none d-lg-block" id="fila_superior_2">
-            <div class="col">
+            <div class="row d-none d-lg-block" id="fila_superior_2">
+                <div class="col">
+                </div>
             </div>
-        </div>
 
-        <p>@Html.ActionLink("Create New", "Create")</p>
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NombreSeccion)
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+            <p>@Html.ActionLink("Create New", "Create")</p>
+            <table class="table table-bordered">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreSeccion)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NombreSeccion)
+                    </th>
                 </tr>
-            }
-        </table>
 
-    </div>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreSeccion)
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
+                   << Anterior
+                </button>
+            </div>
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
+                    Siguiente >>
+                </button>
+            </div>
+
+        </div>
+    }
 
     @* Función que impide que se vaya atrás con las teclas Backspace o Delete *@
     <script type="text/javascript">

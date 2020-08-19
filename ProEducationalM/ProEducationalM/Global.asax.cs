@@ -27,5 +27,11 @@ namespace ProEducationalM
             Server.ClearError();
             Response.Redirect(String.Format("~/Error/?error={0}", error, exception.Message));
         }
+
+        protected void Session_Start()
+        {
+            Session["pagSeccion"] = 0;
+            Session["cantRegpagSeccion"] = 5;
+        }
     }
 }

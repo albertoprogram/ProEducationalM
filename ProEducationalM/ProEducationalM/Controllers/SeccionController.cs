@@ -12,8 +12,24 @@ namespace ProEducationalM.Controllers
     public class SeccionController : Controller
     {
         // GET: Seccion
-        public ActionResult Index()
+        public ActionResult Index(string button)
         {
+            switch (button)
+            {
+                case "PreviousPage":
+                    if ((int)Session["pagSeccion"] >= 1)
+                    {
+                        Session["pagSeccion"] = (int)Session["pagSeccion"] - 1;
+                    }
+                    break;
+                case "NextPage":
+                    Session["pagSeccion"] = (int)Session["pagSeccion"] + 1;
+                    break;
+                default:
+                    Session["pagSeccion"] = 0;
+                    break;
+            }
+
             SeccionServices seccionServices = new SeccionServices();
 
             ExceptionHandling exceptionHandling = new ExceptionHandling();
@@ -22,8 +38,6 @@ namespace ProEducationalM.Controllers
 
             try
             {
-                int pagina = 10;
-                int cantidadRegistros = 10;
                 bool errorYNFromSQLServer;
                 int errorNumberFromSQLServer;
                 int errorSeverityFromSQLServer;
@@ -34,8 +48,8 @@ namespace ProEducationalM.Controllers
                 string originClass;
                 string originMethod;
 
-                var SeccionModel = seccionServices.GetAllSecciones(pagina,
-                    cantidadRegistros,
+                var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
+                    (int)Session["cantRegpagSeccion"],
                     out errorYNFromSQLServer,
                     out errorNumberFromSQLServer,
                     out errorSeverityFromSQLServer,
