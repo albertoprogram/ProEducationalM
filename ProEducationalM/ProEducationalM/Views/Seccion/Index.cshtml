@@ -126,9 +126,16 @@
                 }
             </table>
 
+            <div class="row">
+                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+                <div class="col-3">@Html.Label("ultimaPagina", "Última página : " + TempData["ultimaPagina"].ToString())</div>
+                <div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+            </div>
+
             <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
                 <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
-                   << Anterior
+                    << Anterior
                 </button>
             </div>
             <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">

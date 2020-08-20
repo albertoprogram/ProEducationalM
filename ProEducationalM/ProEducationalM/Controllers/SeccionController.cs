@@ -47,6 +47,7 @@ namespace ProEducationalM.Controllers
                 string errorMessageFromSQLServer;
                 string originClass;
                 string originMethod;
+                int countFromSQLServer;
 
                 var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
                     (int)Session["cantRegpagSeccion"],
@@ -58,7 +59,8 @@ namespace ProEducationalM.Controllers
                     out errorLineFromSQLServer,
                     out errorMessageFromSQLServer,
                     out originClass,
-                    out originMethod);
+                    out originMethod,
+                    out countFromSQLServer);
 
                 if (errorYNFromSQLServer == true)
                 {
@@ -78,6 +80,26 @@ namespace ProEducationalM.Controllers
                 }
                 else
                 {
+                    if (SeccionModel.Count() > 0)
+                    {
+                        TempData["countSecciones"] = countFromSQLServer;
+                        TempData["paginaActual"] = (int)Session["pagSeccion"] + 1;
+
+                        TempData["ultimaPagina"] = (int)TempData["countSecciones"] / (int)Session["cantRegpagSeccion"];
+
+                        if ((int)TempData["ultimaPagina"] == 0)
+                        {
+                            TempData["ultimaPagina"] = 1;
+                        }
+                        else if ((int)TempData["ultimaPagina"] >= 1 &&
+                            ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"]) > 0)
+                        {
+                            TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] + 1;
+                        }
+
+                        TempData["maximoPagina"] = (int)Session["cantRegpagSeccion"];
+                    }
+
                     TempData["Exito_Index_Seccion"] = "Devolución de datos con éxito";
                 }
 

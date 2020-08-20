@@ -131,7 +131,8 @@ namespace ProEducationalM.Services
             out int errorLineFromSQLServer,
             out string errorMessageFromSQLServer,
             out string originClass,
-            out string originMethod)
+            out string originMethod,
+            out int countFromSQLServer)
         {
 
             using (var db = new ProEducationalMDBContext())
@@ -187,6 +188,13 @@ namespace ProEducationalM.Services
                     Direction = ParameterDirection.Output
                 };
 
+                var count = new SqlParameter
+                {
+                    ParameterName = "@count",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+
                 //string storedProcedure = "DECLARE " +
                 //    "@pagina INT," +
                 //    "@cantidadRegistros INT," +
@@ -217,7 +225,8 @@ namespace ProEducationalM.Services
                     "@errorStatus OUTPUT," +
                     "@errorProcedure OUTPUT," +
                     "@errorLine OUTPUT," +
-                    "@errorMessage OUTPUT",
+                    "@errorMessage OUTPUT," +
+                    "@count OUTPUT",
                     new SqlParameter("@pagina", pagina),
                     new SqlParameter("@cantidadRegistros", cantidadRegistros),
                     errorYN,
@@ -226,7 +235,8 @@ namespace ProEducationalM.Services
                     errorStatus,
                     errorProcedure,
                     errorLine,
-                    errorMessage).ToList();
+                    errorMessage,
+                    count).ToList();
 
                 errorYNFromSQLServer = Convert.ToBoolean(errorYN.Value);
                 errorNumberFromSQLServer = Convert.ToInt32(errorNumber.Value);
@@ -235,6 +245,7 @@ namespace ProEducationalM.Services
                 errorProcedureFromSQLServer = errorProcedure.Value.ToString();
                 errorLineFromSQLServer = Convert.ToInt32(errorLine.Value);
                 errorMessageFromSQLServer = errorMessage.Value.ToString();
+                countFromSQLServer = Convert.ToInt32(count.Value);
 
                 originClass = this.GetType().Name;
                 originMethod = System.Reflection.MethodBase.GetCurrentMethod().Name;
