@@ -14,8 +14,13 @@ namespace ProEducationalM.Controllers
         // GET: Seccion
         public ActionResult Index(string button)
         {
+            Session["lastPageSeccionYN"] = false;
+
             switch (button)
             {
+                case "FirstPage":
+                    Session["pagSeccion"] = 0;
+                    break;
                 case "PreviousPage":
                     if ((int)Session["pagSeccion"] >= 1)
                     {
@@ -24,6 +29,10 @@ namespace ProEducationalM.Controllers
                     break;
                 case "NextPage":
                     Session["pagSeccion"] = (int)Session["pagSeccion"] + 1;
+                    break;
+                case "LastPage":
+                    //Session["pagSeccion"] = Convert.ToInt32(TempData["ultimaPagina"]) - 1;
+                    Session["lastPageSeccionYN"] = true;
                     break;
                 default:
                     Session["pagSeccion"] = 0;
@@ -34,7 +43,8 @@ namespace ProEducationalM.Controllers
 
             ExceptionHandling exceptionHandling = new ExceptionHandling();
 
-            string inputValues = "ValoresPaginado=";
+            string inputValues = "ValoresPaginado:Pagina=" + Session["pagSeccion"].ToString() + "," +
+                "CantidadRegistros=" + Session["cantRegpagSeccion"].ToString();
 
             try
             {
@@ -49,8 +59,10 @@ namespace ProEducationalM.Controllers
                 string originMethod;
                 int countFromSQLServer;
 
+
                 var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
                     (int)Session["cantRegpagSeccion"],
+                    (bool)Session["lastPageSeccionYN"],
                     out errorYNFromSQLServer,
                     out errorNumberFromSQLServer,
                     out errorSeverityFromSQLServer,
@@ -83,7 +95,6 @@ namespace ProEducationalM.Controllers
                     if (SeccionModel.Count() > 0)
                     {
                         TempData["countSecciones"] = countFromSQLServer;
-                        TempData["paginaActual"] = (int)Session["pagSeccion"] + 1;
 
                         TempData["ultimaPagina"] = (int)TempData["countSecciones"] / (int)Session["cantRegpagSeccion"];
 
@@ -95,6 +106,16 @@ namespace ProEducationalM.Controllers
                             ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"]) > 0)
                         {
                             TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] + 1;
+                        }
+
+                        if ((bool)Session["lastPageSeccionYN"] == true)
+                        {
+                            TempData["paginaActual"] = (int)TempData["ultimaPagina"];
+                            Session["pagSeccion"] = (int)TempData["ultimaPagina"] - 1;
+                        }
+                        else
+                        {
+                            TempData["paginaActual"] = (int)Session["pagSeccion"] + 1;
                         }
 
                         TempData["maximoPagina"] = (int)Session["cantRegpagSeccion"];

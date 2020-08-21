@@ -85,11 +85,15 @@
         }
     </style>
 
+    @{
+        TempData.Keep("ultimaPagina");
+    }
+
 </head>
 <body>
     @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
     {
-        @Html.AntiForgeryToken()
+
         <div class="container">
 
             <div class="row d-none d-lg-block" id="fila_superior_1">
@@ -133,18 +137,35 @@
                 <div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
             </div>
 
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
-                    << Anterior
-                </button>
-            </div>
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
-                    Siguiente >>
-                </button>
+            <div class="row">
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
+                        Primera
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
+                        << Anterior
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
+                        Siguiente >>
+                    </button>
+                </div>
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
+                        Última
+                    </button>
+                </div>
+
             </div>
 
         </div>
+
     }
 
     @* Función que impide que se vaya atrás con las teclas Backspace o Delete *@
@@ -170,6 +191,47 @@
         history.back();
         history.forward();
         window.onpopstate = function () { history.go(1); };
+    </script>
+
+    <script type="text/javascript">
+
+        @*console.log('Actual ' + '@(TempData["paginaActual"])');
+        console.log('Ultima ' + '@(TempData["ultimaPagina"])');*@
+
+        var buttonLastPage = document.getElementById('LastPage');
+        var buttonNextPage = document.getElementById('NextPage');
+        var buttonFirstPage = document.getElementById('FirstPage');
+        var buttonPreviousPage = document.getElementById('PreviousPage');
+
+        //debugger;
+
+        if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])') {
+
+            buttonLastPage.disabled = true;
+            buttonNextPage.disabled = true;
+
+            buttonFirstPage.disabled = false;
+            buttonPreviousPage.disabled = false;
+
+        }
+        else if ('@(TempData["paginaActual"])' == '1') {
+
+            buttonLastPage.disabled = false;
+            buttonNextPage.disabled = false;
+
+            buttonFirstPage.disabled = true;
+            buttonPreviousPage.disabled = true;
+
+        }
+        else {
+
+            buttonLastPage.disabled = false;
+            buttonNextPage.disabled = false;
+
+            buttonFirstPage.disabled = false;
+            buttonPreviousPage.disabled = false;
+
+        }
     </script>
 
     @* Referencia a Bootstrap - Las siguientes 3 líneas *@

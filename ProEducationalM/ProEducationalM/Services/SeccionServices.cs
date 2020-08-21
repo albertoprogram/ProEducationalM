@@ -123,6 +123,7 @@ namespace ProEducationalM.Services
         public IEnumerable<Seccion> GetAllSecciones(
             int pagina,
             int cantidadRegistros,
+            bool ultimaPaginaYN,
             out bool errorYNFromSQLServer,
             out int errorNumberFromSQLServer,
             out int errorSeverityFromSQLServer,
@@ -195,30 +196,10 @@ namespace ProEducationalM.Services
                     Direction = ParameterDirection.Output
                 };
 
-                //string storedProcedure = "DECLARE " +
-                //    "@pagina INT," +
-                //    "@cantidadRegistros INT," +
-                //    "@errorYN BIT," +
-                //    "@errorNumber INT," +
-                //    "@errorSeverity INT," +
-                //    "@errorStatus INT," +
-                //    "@errorProcedure VARCHAR(250)," +
-                //    "@errorLine INT," +
-                //    "@errorMessage VARCHAR(8000) " +
-                //    "EXEC GetAllSecciones " +
-                //    pagina + "," +
-                //    cantidadRegistros + "," +
-                //    "@errorYN OUTPUT," +
-                //    "@errorNumber OUTPUT," +
-                //    "@errorSeverity OUTPUT," +
-                //    "@errorStatus OUTPUT," +
-                //    "@errorProcedure OUTPUT," +
-                //    "@errorLine OUTPUT," +
-                //    "@errorMessage OUTPUT";
-
                 IEnumerable<Seccion> secciones = db.Database.SqlQuery<Seccion>("GetAllSecciones " +
                     "@pagina," +
                     "@cantidadRegistros," +
+                    "@ultimaPaginaYN," +
                     "@errorYN OUTPUT," +
                     "@errorNumber OUTPUT," +
                     "@errorSeverity OUTPUT," +
@@ -229,6 +210,7 @@ namespace ProEducationalM.Services
                     "@count OUTPUT",
                     new SqlParameter("@pagina", pagina),
                     new SqlParameter("@cantidadRegistros", cantidadRegistros),
+                    new SqlParameter("@ultimaPaginaYN", ultimaPaginaYN),
                     errorYN,
                     errorNumber,
                     errorSeverity,
