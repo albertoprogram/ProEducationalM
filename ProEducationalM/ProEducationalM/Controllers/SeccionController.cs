@@ -12,9 +12,14 @@ namespace ProEducationalM.Controllers
     public class SeccionController : Controller
     {
         // GET: Seccion
-        public ActionResult Index(string button)
+        public ActionResult Index(string button, string maximoPagina)
         {
             Session["lastPageSeccionYN"] = false;
+
+            if (maximoPagina != null && maximoPagina.Trim() != "")
+            {
+                Session["cantRegpagSeccion"] = Convert.ToInt32(maximoPagina);
+            }
 
             switch (button)
             {
@@ -102,10 +107,18 @@ namespace ProEducationalM.Controllers
                         {
                             TempData["ultimaPagina"] = 1;
                         }
-                        else if ((int)TempData["ultimaPagina"] >= 1 &&
-                            ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"]) > 0)
+                        else if ((int)TempData["ultimaPagina"] >= 1)
                         {
-                            TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] + 1;
+
+                            if ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"] > 0)
+                            {
+                                TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] + 1;
+                            }
+                            else if ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"] == 0)
+                            {
+                                TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] - 1;
+                            }
+
                         }
 
                         if ((bool)Session["lastPageSeccionYN"] == true)
@@ -119,6 +132,12 @@ namespace ProEducationalM.Controllers
                         }
 
                         TempData["maximoPagina"] = (int)Session["cantRegpagSeccion"];
+                    }
+                    else
+                    {
+                        TempData["countSecciones"] = 0;
+                        TempData["paginaActual"] = 0;
+                        TempData["ultimaPagina"] = 0;
                     }
 
                     TempData["Exito_Index_Seccion"] = "Devolución de datos con éxito";

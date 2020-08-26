@@ -133,8 +133,28 @@
             <div class="row">
                 <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
                 <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-3">@Html.Label("ultimaPagina", "Última página : " + TempData["ultimaPagina"].ToString())</div>
-                <div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+                @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
+                <div class="col-3">
+                    @*<label>
+                            Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
+                                                         placeholder="Predeterminado: 5">
+                        </label>*@
+                    <label>
+                        Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem>
+{
+ //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
+ new SelectListItem() {Text = "3",Value="3"},
+ new SelectListItem() {Text = "5", Value= "5"},
+ new SelectListItem() {Text = "10", Value = "10"},
+ new SelectListItem() {Text = "15", Value = "15"},
+ new SelectListItem() {Text = "20", Value = "20"},
+ new SelectListItem() {Text = "30", Value = "30"},
+ new SelectListItem() {Text = "50", Value = "50"},
+ new SelectListItem() {Text = "100", Value = "100"}
+}, new { @class = "form-control", onchange = "this.form.submit();" })
+                    </label>
+                </div>
             </div>
 
             <div class="row">
@@ -193,10 +213,19 @@
         window.onpopstate = function () { history.go(1); };
     </script>
 
+    @*Autocompletado deshabilitado*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#maximoPagina').attr("autocomplete", "off");
+        })
+    </script>
+
     <script type="text/javascript">
 
         @*console.log('Actual ' + '@(TempData["paginaActual"])');
         console.log('Ultima ' + '@(TempData["ultimaPagina"])');*@
+
+        document.getElementById("maximoPagina").value = @Session["cantRegpagSeccion"];
 
         var buttonLastPage = document.getElementById('LastPage');
         var buttonNextPage = document.getElementById('NextPage');
@@ -205,7 +234,29 @@
 
         //debugger;
 
-        if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])') {
+        if (('@(TempData["countSecciones"])' == '0')) {
+
+            console.log('entró en CERO');
+
+            buttonFirstPage.disabled = true;
+            buttonNextPage.disabled = true;
+            buttonPreviousPage.disabled = true;
+            buttonLastPage.disabled = true;
+
+        }
+        else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])' && @(Convert.ToInt32(TempData["countSecciones"])) <= @(Convert.ToInt32(TempData["maximoPagina"]))) {
+
+            console.log('entró cuando la primera y última página es igual y la cantidad de registros es menor o igual a la cantidad de registros máximos por página');
+
+                buttonFirstPage.disabled = true;
+                buttonNextPage.disabled = true;
+                buttonPreviousPage.disabled = true;
+                buttonLastPage.disabled = true;
+
+            }
+        else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])') {
+
+            console.log('Entró cuando la página última y actual son iguales');
 
             buttonLastPage.disabled = true;
             buttonNextPage.disabled = true;
@@ -216,6 +267,8 @@
         }
         else if ('@(TempData["paginaActual"])' == '1') {
 
+            console.log('Entró cuando la página actual es 1');
+
             buttonLastPage.disabled = false;
             buttonNextPage.disabled = false;
 
@@ -225,6 +278,8 @@
         }
         else {
 
+            console.log('entró en el else');
+
             buttonLastPage.disabled = false;
             buttonNextPage.disabled = false;
 
@@ -232,6 +287,7 @@
             buttonPreviousPage.disabled = false;
 
         }
+
     </script>
 
     @* Referencia a Bootstrap - Las siguientes 3 líneas *@
