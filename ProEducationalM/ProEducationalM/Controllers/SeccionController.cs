@@ -12,8 +12,24 @@ namespace ProEducationalM.Controllers
     public class SeccionController : Controller
     {
         // GET: Seccion
-        public ActionResult Index(string button, string maximoPagina)
+        public ActionResult Index(string button, string maximoPagina, string ColumnaSeccionOrden)
         {
+            if (ColumnaSeccionOrden != null)
+            {
+                if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
+                {
+                    Session["ColumnSeccionIndexSeccionOrder"] = "DESC";
+                }
+                else if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "DESC")
+                {
+                    Session["ColumnSeccionIndexSeccionOrder"] = "ASC";
+                }
+                else
+                {
+                    Session["ColumnSeccionIndexSeccionOrder"] = "ASC";
+                }
+            }
+
             Session["lastPageSeccionYN"] = false;
 
             if (maximoPagina != null && maximoPagina.Trim() != "")
@@ -24,18 +40,22 @@ namespace ProEducationalM.Controllers
             switch (button)
             {
                 case "FirstPage":
+                case "UFirstPage":
                     Session["pagSeccion"] = 0;
                     break;
                 case "PreviousPage":
+                case "UPreviousPage":
                     if ((int)Session["pagSeccion"] >= 1)
                     {
                         Session["pagSeccion"] = (int)Session["pagSeccion"] - 1;
                     }
                     break;
                 case "NextPage":
+                case "UNextPage":
                     Session["pagSeccion"] = (int)Session["pagSeccion"] + 1;
                     break;
                 case "LastPage":
+                case "ULastPage":
                     //Session["pagSeccion"] = Convert.ToInt32(TempData["ultimaPagina"]) - 1;
                     Session["lastPageSeccionYN"] = true;
                     break;
@@ -116,7 +136,7 @@ namespace ProEducationalM.Controllers
                             }
                             else if ((int)TempData["countSecciones"] % (int)Session["cantRegpagSeccion"] == 0)
                             {
-                                TempData["ultimaPagina"] = (int)TempData["ultimaPagina"] - 1;
+                                TempData["ultimaPagina"] = (int)TempData["ultimaPagina"];
                             }
 
                         }

@@ -25,6 +25,9 @@
     @* Referencia a CSS de la página *@
     <link href="~/Styles/ProEducationalMStyles.css" rel="stylesheet" type="text/css" />
 
+    @* Referencia a FontAwesome *@
+    <script src="~/Scripts/FontAwesome/all.min.js"></script>
+
     @* Control de los mensajes a usuario *@
     <script type="text/javascript">
         $(document).ready(function () {
@@ -89,102 +92,160 @@
         TempData.Keep("ultimaPagina");
     }
 
+    <style type="text/css">
+        .blue {
+            color: blue;
+        }
+    </style>
+
 </head>
 <body>
     @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
     {
 
-        <div class="container">
+    <div class="container">
 
-            <div class="row d-none d-lg-block" id="fila_superior_1">
-                <div class="col">
-                </div>
+        <div class="row d-none d-lg-block" id="fila_superior_1">
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row" id="contenedor">
+            <div class="col">
+                <h1>Paralelos</h1>
+            </div>
+        </div>
+
+        <div class="row d-none d-lg-block" id="fila_superior_2">
+            <div class="col">
+            </div>
+        </div>
+
+        <p>@Html.ActionLink("Create New", "Create")</p>
+
+        <div class="row">
+
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="UFirstPage" name="button" value="UFirstPage" type="submit" class="btn btn-primary">
+                    Primera
+                </button>
             </div>
 
-            <div class="row" id="contenedor">
-                <div class="col">
-                    <h1>Paralelos</h1>
-                </div>
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="UPreviousPage" name="button" value="UPreviousPage" type="submit" class="btn btn-primary">
+                    << Anterior
+                </button>
             </div>
 
-            <div class="row d-none d-lg-block" id="fila_superior_2">
-                <div class="col">
-                </div>
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="UNextPage" name="button" value="UNextPage" type="submit" class="btn btn-primary">
+                    Siguiente >>
+                </button>
             </div>
-
-            <p>@Html.ActionLink("Create New", "Create")</p>
-            <table class="table table-bordered">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NombreSeccion)
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NombreSeccion)
-                        </td>
-                    </tr>
-                }
-            </table>
-
-            <div class="row">
-                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
-                <div class="col-3">
-                    @*<label>
-                            Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
-                                                         placeholder="Predeterminado: 5">
-                        </label>*@
-                    <label>
-                        Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem>
-{
- //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
- new SelectListItem() {Text = "3",Value="3"},
- new SelectListItem() {Text = "5", Value= "5"},
- new SelectListItem() {Text = "10", Value = "10"},
- new SelectListItem() {Text = "15", Value = "15"},
- new SelectListItem() {Text = "20", Value = "20"},
- new SelectListItem() {Text = "30", Value = "30"},
- new SelectListItem() {Text = "50", Value = "50"},
- new SelectListItem() {Text = "100", Value = "100"}
-}, new { @class = "form-control", onchange = "this.form.submit();" })
-                    </label>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
-                        Primera
-                    </button>
-                </div>
-
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
-                        << Anterior
-                    </button>
-                </div>
-
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
-                        Siguiente >>
-                    </button>
-                </div>
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
-                        Última
-                    </button>
-                </div>
-
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="ULastPage" name="button" value="ULastPage" type="submit" class="btn btn-primary">
+                    Última
+                </button>
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+            <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+            <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+            @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
+            <div class="col-3">
+                @*<label>
+                    Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
+                                                 placeholder="Predeterminado: 5">
+                </label>*@
+                <label>
+                    Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem>
+               {
+                   //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
+                   new SelectListItem() {Text = "3",Value="3"},
+                   new SelectListItem() {Text = "5", Value= "5"},
+                   new SelectListItem() {Text = "10", Value = "10"},
+                   new SelectListItem() {Text = "15", Value = "15"},
+                   new SelectListItem() {Text = "20", Value = "20"},
+                   new SelectListItem() {Text = "30", Value = "30"},
+                   new SelectListItem() {Text = "50", Value = "50"},
+                   new SelectListItem() {Text = "100", Value = "100"}
+               }, new { @class = "form-control", onchange = "this.form.submit();" })
+                </label>
+            </div>
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.NombreSeccion)*@
+                    <a href="@Url.Action("Index", new { ColumnaSeccionOrden = Session["ColumnSeccionIndexSeccionOrder"].ToString() })">
+                        <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
+                        @{
+                            if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
+                            {
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                            }
+                            else if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "DESC")
+                            {
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                            }
+                        }
+                    </a>
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreSeccion)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="row">
+            <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+            <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+            <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+            <div class="col-3">@Html.Label("LabelmaximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
+                    Primera
+                </button>
+            </div>
+
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
+                    << Anterior
+                </button>
+            </div>
+
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
+                    Siguiente >>
+                </button>
+            </div>
+            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
+                    Última
+                </button>
+            </div>
+
+        </div>
+
+    </div>
 
     }
 
@@ -231,6 +292,10 @@
         var buttonNextPage = document.getElementById('NextPage');
         var buttonFirstPage = document.getElementById('FirstPage');
         var buttonPreviousPage = document.getElementById('PreviousPage');
+        var buttonULastPage = document.getElementById('ULastPage');
+        var buttonUNextPage = document.getElementById('UNextPage');
+        var buttonUFirstPage = document.getElementById('UFirstPage');
+        var buttonUPreviousPage = document.getElementById('UPreviousPage');
 
         //debugger;
 
@@ -243,6 +308,11 @@
             buttonPreviousPage.disabled = true;
             buttonLastPage.disabled = true;
 
+            buttonUFirstPage.disabled = true;
+            buttonUNextPage.disabled = true;
+            buttonUPreviousPage.disabled = true;
+            buttonULastPage.disabled = true;
+
         }
         else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])' && @(Convert.ToInt32(TempData["countSecciones"])) <= @(Convert.ToInt32(TempData["maximoPagina"]))) {
 
@@ -251,7 +321,12 @@
                 buttonFirstPage.disabled = true;
                 buttonNextPage.disabled = true;
                 buttonPreviousPage.disabled = true;
-                buttonLastPage.disabled = true;
+            buttonLastPage.disabled = true;
+
+            buttonUFirstPage.disabled = true;
+            buttonUNextPage.disabled = true;
+            buttonUPreviousPage.disabled = true;
+            buttonULastPage.disabled = true;
 
             }
         else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])') {
@@ -264,6 +339,12 @@
             buttonFirstPage.disabled = false;
             buttonPreviousPage.disabled = false;
 
+            buttonULastPage.disabled = true;
+            buttonUNextPage.disabled = true;
+
+            buttonUFirstPage.disabled = false;
+            buttonUPreviousPage.disabled = false;
+
         }
         else if ('@(TempData["paginaActual"])' == '1') {
 
@@ -275,6 +356,12 @@
             buttonFirstPage.disabled = true;
             buttonPreviousPage.disabled = true;
 
+            buttonULastPage.disabled = false;
+            buttonUNextPage.disabled = false;
+
+            buttonUFirstPage.disabled = true;
+            buttonUPreviousPage.disabled = true;
+
         }
         else {
 
@@ -285,6 +372,12 @@
 
             buttonFirstPage.disabled = false;
             buttonPreviousPage.disabled = false;
+
+            buttonULastPage.disabled = false;
+            buttonUNextPage.disabled = false;
+
+            buttonUFirstPage.disabled = false;
+            buttonUPreviousPage.disabled = false;
 
         }
 

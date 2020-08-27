@@ -33,6 +33,7 @@ namespace ProEducationalM
             Session["pagSeccion"] = 0;
             Session["cantRegpagSeccion"] = 5;
             Session["lastPageSeccionYN"] = false;
+            Session["ColumnSeccionIndexSeccionOrder"] = "ASC";
         }
     }
 }
