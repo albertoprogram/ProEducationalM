@@ -124,6 +124,7 @@ namespace ProEducationalM.Services
             int pagina,
             int cantidadRegistros,
             bool ultimaPaginaYN,
+            string columnaSeccionOrden,
             out bool errorYNFromSQLServer,
             out int errorNumberFromSQLServer,
             out int errorSeverityFromSQLServer,
@@ -200,6 +201,7 @@ namespace ProEducationalM.Services
                     "@pagina," +
                     "@cantidadRegistros," +
                     "@ultimaPaginaYN," +
+                    "@columnaSeccionOrden," +
                     "@errorYN OUTPUT," +
                     "@errorNumber OUTPUT," +
                     "@errorSeverity OUTPUT," +
@@ -211,6 +213,7 @@ namespace ProEducationalM.Services
                     new SqlParameter("@pagina", pagina),
                     new SqlParameter("@cantidadRegistros", cantidadRegistros),
                     new SqlParameter("@ultimaPaginaYN", ultimaPaginaYN),
+                    new SqlParameter("@columnaSeccionOrden",columnaSeccionOrden),
                     errorYN,
                     errorNumber,
                     errorSeverity,

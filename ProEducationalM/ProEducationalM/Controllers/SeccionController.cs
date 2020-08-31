@@ -88,6 +88,7 @@ namespace ProEducationalM.Controllers
                 var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
                     (int)Session["cantRegpagSeccion"],
                     (bool)Session["lastPageSeccionYN"],
+                    Session["ColumnSeccionIndexSeccionOrder"].ToString(),
                     out errorYNFromSQLServer,
                     out errorNumberFromSQLServer,
                     out errorSeverityFromSQLServer,
