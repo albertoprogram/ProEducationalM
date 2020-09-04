@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images_Icons\mJotv.gif" />
     <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\css\bootstrap-grid.css" />

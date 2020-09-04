@@ -124,6 +124,20 @@
         <p>@Html.ActionLink("Create New", "Create")</p>
 
         <div class="row">
+            <div class="col">
+                @Html.TextBox("textBuscar", null, new { placeholder = "Ingrese su búsqueda", @class = "form-control" })
+            </div>
+        </div>
+
+        <button id="SearchButton" name="button" value="SearchButton" type="button"
+                class="btn btn-primary"
+                onclick="changeHref()">
+            Buscar
+        </button>
+
+        @*onclick="location.href='@Url.Action("Index", "Seccion")?busqueda=' + $('#textBuscar').val()">*@
+
+        <div class="row">
 
             <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
                 <button id="UFirstPage" name="button" value="UFirstPage" type="submit" class="btn btn-primary">
@@ -162,17 +176,17 @@
                 </label>*@
                 <label>
                     Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem>
-               {
-                   //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
-                   new SelectListItem() {Text = "3",Value="3"},
-                   new SelectListItem() {Text = "5", Value= "5"},
-                   new SelectListItem() {Text = "10", Value = "10"},
-                   new SelectListItem() {Text = "15", Value = "15"},
-                   new SelectListItem() {Text = "20", Value = "20"},
-                   new SelectListItem() {Text = "30", Value = "30"},
-                   new SelectListItem() {Text = "50", Value = "50"},
-                   new SelectListItem() {Text = "100", Value = "100"}
-               }, new { @class = "form-control", onchange = "this.form.submit();" })
+{
+//new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
+new SelectListItem() {Text = "3",Value="3"},
+new SelectListItem() {Text = "5", Value= "5"},
+new SelectListItem() {Text = "10", Value = "10"},
+new SelectListItem() {Text = "15", Value = "15"},
+new SelectListItem() {Text = "20", Value = "20"},
+new SelectListItem() {Text = "30", Value = "30"},
+new SelectListItem() {Text = "50", Value = "50"},
+new SelectListItem() {Text = "100", Value = "100"}
+}, new { @class = "form-control", onchange = "this.form.submit();" })
                 </label>
             </div>
         </div>
@@ -186,15 +200,15 @@
                         @{
                             if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
                             {
-                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                <i class="fa fa-caret-up" aria-hidden="true"></i>
                             }
                             else if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "DESC")
                             {
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
                             }
                             else
                             {
-                        <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                <i class="fa fa-caret-up" aria-hidden="true"></i>
                             }
                         }
                     </a>
@@ -380,6 +394,17 @@
             buttonUPreviousPage.disabled = false;
 
         }
+
+    </script>
+
+    @* Paso de información al controlador del cuadro de búsqueda *@
+    <script type="text/javascript">
+
+        function changeHref(){
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            window.location.href = url + '/?busqueda=' + txtVal;
+   }
 
     </script>
 

@@ -30,10 +30,12 @@ namespace ProEducationalM
 
         protected void Session_Start()
         {
+            // Variables de session de la view Index del controller Seccion
             Session["pagSeccion"] = 0;
             Session["cantRegpagSeccion"] = 5;
             Session["lastPageSeccionYN"] = false;
             Session["ColumnSeccionIndexSeccionOrder"] = "ASC";
+            Session["TextoBusquedaColumnSeccion"] = "";
         }
     }
 }

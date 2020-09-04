@@ -12,8 +12,14 @@ namespace ProEducationalM.Controllers
     public class SeccionController : Controller
     {
         // GET: Seccion
-        public ActionResult Index(string button, string maximoPagina, string ColumnaSeccionOrden)
+        public ActionResult Index(string button, string maximoPagina, string ColumnaSeccionOrden, string busqueda)
         {
+
+            if (busqueda != null && busqueda.Trim() != "")
+            {
+                Session["TextoBusquedaColumnSeccion"] = busqueda.Trim();
+            }
+
             if (ColumnaSeccionOrden != null)
             {
                 if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
