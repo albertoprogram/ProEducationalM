@@ -89,12 +89,14 @@ namespace ProEducationalM.Controllers
                 string originClass;
                 string originMethod;
                 int countFromSQLServer;
+                
 
 
                 var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
                     (int)Session["cantRegpagSeccion"],
                     (bool)Session["lastPageSeccionYN"],
                     Session["ColumnSeccionIndexSeccionOrder"].ToString(),
+                    Session["TextoBusquedaColumnSeccion"].ToString(),
                     out errorYNFromSQLServer,
                     out errorNumberFromSQLServer,
                     out errorSeverityFromSQLServer,
