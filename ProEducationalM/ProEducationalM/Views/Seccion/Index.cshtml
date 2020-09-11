@@ -103,163 +103,164 @@
     @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
     {
 
-    <div class="container">
+        <div class="container">
 
-        <div class="row d-none d-lg-block" id="fila_superior_1">
-            <div class="col">
-            </div>
-        </div>
-
-        <div class="row" id="contenedor">
-            <div class="col">
-                <h1>Paralelos</h1>
-            </div>
-        </div>
-
-        <div class="row d-none d-lg-block" id="fila_superior_2">
-            <div class="col">
-            </div>
-        </div>
-
-        <p>@Html.ActionLink("Create New", "Create")</p>
-
-        <div class="row">
-            <div class="col">
-                @Html.TextBox("textBuscar", null, new { placeholder = "Ingrese su búsqueda", @class = "form-control" })
-            </div>
-        </div>
-
-        <button id="SearchButton" name="button" value="SearchButton" type="button"
-                class="btn btn-primary"
-                onclick="changeHref()">
-            Buscar
-        </button>
-
-        @*onclick="location.href='@Url.Action("Index", "Seccion")?busqueda=' + $('#textBuscar').val()">*@
-
-        <div class="row">
-
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="UFirstPage" name="button" value="UFirstPage" type="submit" class="btn btn-primary">
-                    Primera
-                </button>
+            <div class="row d-none d-lg-block" id="fila_superior_1">
+                <div class="col">
+                </div>
             </div>
 
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="UPreviousPage" name="button" value="UPreviousPage" type="submit" class="btn btn-primary">
-                    << Anterior
-                </button>
+            <div class="row" id="contenedor">
+                <div class="col">
+                    <h1>Paralelos</h1>
+                </div>
             </div>
 
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="UNextPage" name="button" value="UNextPage" type="submit" class="btn btn-primary">
-                    Siguiente >>
-                </button>
-            </div>
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="ULastPage" name="button" value="ULastPage" type="submit" class="btn btn-primary">
-                    Última
-                </button>
+            <div class="row d-none d-lg-block" id="fila_superior_2">
+                <div class="col">
+                </div>
             </div>
 
-        </div>
+            <p>@Html.ActionLink("Create New", "Create")</p>
 
-        <div class="row">
-            <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-            <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-            <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-            @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
-            <div class="col-3">
-                @*<label>
-                    Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
-                                                 placeholder="Predeterminado: 5">
-                </label>*@
-                <label>
-                    Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem>
-{
-//new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
-new SelectListItem() {Text = "3",Value="3"},
-new SelectListItem() {Text = "5", Value= "5"},
-new SelectListItem() {Text = "10", Value = "10"},
-new SelectListItem() {Text = "15", Value = "15"},
-new SelectListItem() {Text = "20", Value = "20"},
-new SelectListItem() {Text = "30", Value = "30"},
-new SelectListItem() {Text = "50", Value = "50"},
-new SelectListItem() {Text = "100", Value = "100"}
-}, new { @class = "form-control", onchange = "this.form.submit();" })
-                </label>
+            <div class="row">
+                <div class="col">
+                    @Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <table class="table table-bordered">
-            <tr>
-                <th>
-                    @*@Html.DisplayNameFor(model => model.NombreSeccion)*@
-                    <a href="@Url.Action("Index", new { ColumnaSeccionOrden = Session["ColumnSeccionIndexSeccionOrder"].ToString() })">
-                        <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
-                        @{
-                            if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
-                            {
-                                <i class="fa fa-caret-up" aria-hidden="true"></i>
-                            }
-                            else if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "DESC")
-                            {
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            }
-                            else
-                            {
-                                <i class="fa fa-caret-up" aria-hidden="true"></i>
-                            }
-                        }
-                    </a>
-                </th>
-            </tr>
+            <button id="SearchButton" name="button" value="SearchButton" type="button"
+                    class="btn btn-primary"
+                    onclick="changeHref()">
+                Buscar
+            </button>
 
-            @foreach (var item in Model)
-            {
+            @*onclick="location.href='@Url.Action("Index", "Seccion")?busqueda=' + $('#textBuscar').val()">*@
+
+            <div class="row">
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="UFirstPage" name="button" value="UFirstPage" type="submit" class="btn btn-primary">
+                        Primera
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="UPreviousPage" name="button" value="UPreviousPage" type="submit" class="btn btn-primary">
+                        << Anterior
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="UNextPage" name="button" value="UNextPage" type="submit" class="btn btn-primary">
+                        Siguiente >>
+                    </button>
+                </div>
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="ULastPage" name="button" value="ULastPage" type="submit" class="btn btn-primary">
+                        Última
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+                @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
+                <div class="col-3">
+                    @*<label>
+                            Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
+                                                         placeholder="Predeterminado: 5">
+                        </label>*@
+                    <label>
+                        Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
+                                             //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
+                                             new SelectListItem() {Text = "3",Value="3"},
+                                             new SelectListItem() {Text = "5", Value= "5"},
+                                             new SelectListItem() {Text = "10", Value = "10"},
+                                             new SelectListItem() {Text = "15", Value = "15"},
+                                             new SelectListItem() {Text = "20", Value = "20"},
+                                             new SelectListItem() {Text = "30", Value = "30"},
+                                             new SelectListItem() {Text = "50", Value = "50"},
+                                             new SelectListItem() {Text = "100", Value = "100"}
+                                             },
+                                             new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
+                        @*new { @class = "form-control", onchange = "this.form.submit();" })*@
+                    </label>
+                </div>
+            </div>
+
+            <table class="table table-bordered">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NombreSeccion)
-                    </td>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.NombreSeccion)*@
+                        <a href="@Url.Action("Index")" onclick='ChangeHrefColumnHeaderSeccion();'>
+                            <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
+                            @{
+                                if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
+                                {
+                                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                }
+                                else if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "DESC")
+                                {
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                                }
+                            }
+                        </a>
+                    </th>
                 </tr>
-            }
-        </table>
 
-        <div class="row">
-            <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-            <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-            <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-            <div class="col-3">@Html.Label("LabelmaximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreSeccion)
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="row">
+                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+                <div class="col-3">@Html.Label("LabelmaximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
+                        Primera
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
+                        << Anterior
+                    </button>
+                </div>
+
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
+                        Siguiente >>
+                    </button>
+                </div>
+                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                    <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
+                        Última
+                    </button>
+                </div>
+
+            </div>
+
         </div>
-
-        <div class="row">
-
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
-                    Primera
-                </button>
-            </div>
-
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
-                    << Anterior
-                </button>
-            </div>
-
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
-                    Siguiente >>
-                </button>
-            </div>
-            <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
-                    Última
-                </button>
-            </div>
-
-        </div>
-
-    </div>
 
     }
 
@@ -397,13 +398,42 @@ new SelectListItem() {Text = "100", Value = "100"}
 
     </script>
 
-    @* Paso de información al controlador del cuadro de búsqueda *@
+    @* Paso de información al controlador al presionar clic al botón de búsqueda *@
     <script type="text/javascript">
 
         function changeHref(){
             var url = '@Url.Action("Index", "Seccion")';
             var txtVal = $('#textBuscar').val();
-            window.location.href = url + '/?busqueda=' + txtVal;
+            var btn = 'SearchButton';
+            window.location.href = url + '/?button=' + btn + '&busqueda=' + txtVal;
+   }
+
+    </script>
+
+    @* Paso de información al controlador al cambiar el valor del drop down list
+        de cantidad de registros por página a mostrar *@
+    <script type="text/javascript">
+
+        function ChangeHrefDropDownListCantRegPag(){
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'DropDownListCantRegPag';
+            var maximoPagina = $('#maximoPagina').val();
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&busqueda=' + txtVal;
+   }
+
+    </script>
+
+    @* Paso de información al controlador al presionar la cabecera de la columna Paralelo *@
+    <script type="text/javascript">
+
+        function ChangeHrefColumnHeaderSeccion(){
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'ColumnHeaderSeccion';
+            var maximoPagina = $('#maximoPagina').val();
+            var columnaSeccionOrden = @Session["ColumnSeccionIndexSeccionOrder"].ToString();
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
    }
 
     </script>
