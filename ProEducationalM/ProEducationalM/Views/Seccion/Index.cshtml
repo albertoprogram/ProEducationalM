@@ -131,7 +131,7 @@
 
             <button id="SearchButton" name="button" value="SearchButton" type="button"
                     class="btn btn-primary"
-                    onclick="changeHref()">
+                    onclick="ChangeHref()">
                 Buscar
             </button>
 
@@ -140,24 +140,28 @@
             <div class="row">
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="UFirstPage" name="button" value="UFirstPage" type="submit" class="btn btn-primary">
+                    <button id="UFirstPage" name="button" value="UFirstPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnFirstPage()">
                         Primera
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="UPreviousPage" name="button" value="UPreviousPage" type="submit" class="btn btn-primary">
+                    <button id="UPreviousPage" name="button" value="UPreviousPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnPreviousPage()">
                         << Anterior
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="UNextPage" name="button" value="UNextPage" type="submit" class="btn btn-primary">
+                    <button id="UNextPage" name="button" value="UNextPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnNextPage()">
                         Siguiente >>
                     </button>
                 </div>
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="ULastPage" name="button" value="ULastPage" type="submit" class="btn btn-primary">
+                    <button id="ULastPage" name="button" value="ULastPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnLastPage()">
                         Última
                     </button>
                 </div>
@@ -176,17 +180,17 @@
                         </label>*@
                     <label>
                         Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
-                                             //new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
-                                             new SelectListItem() {Text = "3",Value="3"},
-                                             new SelectListItem() {Text = "5", Value= "5"},
-                                             new SelectListItem() {Text = "10", Value = "10"},
-                                             new SelectListItem() {Text = "15", Value = "15"},
-                                             new SelectListItem() {Text = "20", Value = "20"},
-                                             new SelectListItem() {Text = "30", Value = "30"},
-                                             new SelectListItem() {Text = "50", Value = "50"},
-                                             new SelectListItem() {Text = "100", Value = "100"}
-                                             },
-                                             new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
+//new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
+new SelectListItem() {Text = "3",Value="3"},
+new SelectListItem() {Text = "5", Value= "5"},
+new SelectListItem() {Text = "10", Value = "10"},
+new SelectListItem() {Text = "15", Value = "15"},
+new SelectListItem() {Text = "20", Value = "20"},
+new SelectListItem() {Text = "30", Value = "30"},
+new SelectListItem() {Text = "50", Value = "50"},
+new SelectListItem() {Text = "100", Value = "100"}
+},
+new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
                         @*new { @class = "form-control", onchange = "this.form.submit();" })*@
                     </label>
                 </div>
@@ -196,7 +200,7 @@
                 <tr>
                     <th>
                         @*@Html.DisplayNameFor(model => model.NombreSeccion)*@
-                        <a href="@Url.Action("Index")" onclick='ChangeHrefColumnHeaderSeccion();'>
+                        <a href="javascript:void(0);" onclick="ChangeHrefColumnHeaderSeccion();">
                             <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
                             @{
                                 if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
@@ -236,24 +240,28 @@
             <div class="row">
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="FirstPage" name="button" value="FirstPage" type="submit" class="btn btn-primary">
+                    <button id="FirstPage" name="button" value="FirstPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnFirstPage()">
                         Primera
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="PreviousPage" name="button" value="PreviousPage" type="submit" class="btn btn-primary">
+                    <button id="PreviousPage" name="button" value="PreviousPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnPreviousPage()">
                         << Anterior
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="NextPage" name="button" value="NextPage" type="submit" class="btn btn-primary">
+                    <button id="NextPage" name="button" value="NextPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnNextPage()">
                         Siguiente >>
                     </button>
                 </div>
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="LastPage" name="button" value="LastPage" type="submit" class="btn btn-primary">
+                    <button id="LastPage" name="button" value="LastPage" type="button" class="btn btn-primary"
+                            onclick="ChangeHrefBtnLastPage()">
                         Última
                     </button>
                 </div>
@@ -296,10 +304,8 @@
         })
     </script>
 
+    @* Control de habilitado y deshabilitado de botones de paginado *@
     <script type="text/javascript">
-
-        @*console.log('Actual ' + '@(TempData["paginaActual"])');
-        console.log('Ultima ' + '@(TempData["ultimaPagina"])');*@
 
         document.getElementById("maximoPagina").value = @Session["cantRegpagSeccion"];
 
@@ -316,8 +322,6 @@
 
         if (('@(TempData["countSecciones"])' == '0')) {
 
-            console.log('entró en CERO');
-
             buttonFirstPage.disabled = true;
             buttonNextPage.disabled = true;
             buttonPreviousPage.disabled = true;
@@ -331,11 +335,9 @@
         }
         else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])' && @(Convert.ToInt32(TempData["countSecciones"])) <= @(Convert.ToInt32(TempData["maximoPagina"]))) {
 
-            console.log('entró cuando la primera y última página es igual y la cantidad de registros es menor o igual a la cantidad de registros máximos por página');
-
-                buttonFirstPage.disabled = true;
-                buttonNextPage.disabled = true;
-                buttonPreviousPage.disabled = true;
+            buttonFirstPage.disabled = true;
+            buttonNextPage.disabled = true;
+            buttonPreviousPage.disabled = true;
             buttonLastPage.disabled = true;
 
             buttonUFirstPage.disabled = true;
@@ -345,8 +347,6 @@
 
             }
         else if ('@(TempData["paginaActual"])' == '@(TempData["ultimaPagina"])') {
-
-            console.log('Entró cuando la página última y actual son iguales');
 
             buttonLastPage.disabled = true;
             buttonNextPage.disabled = true;
@@ -363,8 +363,6 @@
         }
         else if ('@(TempData["paginaActual"])' == '1') {
 
-            console.log('Entró cuando la página actual es 1');
-
             buttonLastPage.disabled = false;
             buttonNextPage.disabled = false;
 
@@ -379,8 +377,6 @@
 
         }
         else {
-
-            console.log('entró en el else');
 
             buttonLastPage.disabled = false;
             buttonNextPage.disabled = false;
@@ -401,7 +397,7 @@
     @* Paso de información al controlador al presionar clic al botón de búsqueda *@
     <script type="text/javascript">
 
-        function changeHref(){
+        function ChangeHref(){
             var url = '@Url.Action("Index", "Seccion")';
             var txtVal = $('#textBuscar').val();
             var btn = 'SearchButton';
@@ -427,13 +423,79 @@
     @* Paso de información al controlador al presionar la cabecera de la columna Paralelo *@
     <script type="text/javascript">
 
-        function ChangeHrefColumnHeaderSeccion(){
+        function ChangeHrefColumnHeaderSeccion() {
+
             var url = '@Url.Action("Index", "Seccion")';
             var txtVal = $('#textBuscar').val();
             var btn = 'ColumnHeaderSeccion';
             var maximoPagina = $('#maximoPagina').val();
-            var columnaSeccionOrden = @Session["ColumnSeccionIndexSeccionOrder"].ToString();
+            var columnaSeccionOrden = '@Session["ColumnSeccionIndexSeccionOrder"].ToString()';
             window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
+
+   }
+
+    </script>
+
+    @* Paso de información al controlador al presionar el botón primera página *@
+    <script type="text/javascript">
+
+        function ChangeHrefBtnFirstPage() {
+
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'FirstPage';
+            var maximoPagina = $('#maximoPagina').val();
+            var columnaSeccionOrden = '@Session["ColumnSeccionIndexSeccionOrder"].ToString()';
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
+
+   }
+
+    </script>
+
+    @* Paso de información al controlador al presionar el botón página anterior *@
+    <script type="text/javascript">
+
+        function ChangeHrefBtnPreviousPage() {
+
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'PreviousPage';
+            var maximoPagina = $('#maximoPagina').val();
+            var columnaSeccionOrden = '@Session["ColumnSeccionIndexSeccionOrder"].ToString()';
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
+
+   }
+
+    </script>
+
+    @* Paso de información al controlador al presionar el botón siguiente página *@
+    <script type="text/javascript">
+
+        function ChangeHrefBtnNextPage() {
+
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'NextPage';
+            var maximoPagina = $('#maximoPagina').val();
+            var columnaSeccionOrden = '@Session["ColumnSeccionIndexSeccionOrder"].ToString()';
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
+
+   }
+
+    </script>
+
+    @* Paso de información al controlador al presionar el botón última página *@
+    <script type="text/javascript">
+
+        function ChangeHrefBtnLastPage() {
+
+            var url = '@Url.Action("Index", "Seccion")';
+            var txtVal = $('#textBuscar').val();
+            var btn = 'LastPage';
+            var maximoPagina = $('#maximoPagina').val();
+            var columnaSeccionOrden = '@Session["ColumnSeccionIndexSeccionOrder"].ToString()';
+            window.location.href = url + '/?button=' + btn + '&maximoPagina=' + maximoPagina + '&ColumnaSeccionOrden=' + columnaSeccionOrden + '&busqueda=' + txtVal;
+
    }
 
     </script>

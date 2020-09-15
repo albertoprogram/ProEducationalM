@@ -20,7 +20,7 @@ namespace ProEducationalM.Controllers
                 Session["TextoBusquedaColumnSeccion"] = busqueda.Trim();
             }
 
-            if (ColumnaSeccionOrden != null)
+            if (ColumnaSeccionOrden != null && button == "ColumnHeaderSeccion")
             {
                 if (Session["ColumnSeccionIndexSeccionOrder"].ToString() == "ASC")
                 {
