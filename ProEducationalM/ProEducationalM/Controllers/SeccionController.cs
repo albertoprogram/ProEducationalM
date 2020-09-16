@@ -15,7 +15,7 @@ namespace ProEducationalM.Controllers
         public ActionResult Index(string button, string maximoPagina, string ColumnaSeccionOrden, string busqueda)
         {
 
-            if (busqueda != null && busqueda.Trim() != "")
+            if (busqueda != null)
             {
                 Session["TextoBusquedaColumnSeccion"] = busqueda.Trim();
             }
