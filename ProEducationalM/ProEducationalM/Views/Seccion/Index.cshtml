@@ -99,7 +99,7 @@
     </style>
 
 </head>
-<body>
+<body onload="PageLoadForm()">
     @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
     {
 
@@ -125,7 +125,8 @@
 
             <div class="row">
                 <div class="col">
-                    @Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control", maxlength = "50", autofocus="autofocus" })
+                    @*@Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control", maxlength = "50" })*@
+                    <input id="textBuscar" name="textBuscar" value="@Session["TextoBusquedaColumnSeccion"].ToString()" placeholder="Ingrese su búsqueda" maxlength="50" class="form-control" type="text" />
                 </div>
             </div>
 
@@ -271,6 +272,20 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
     }
 
+    <script type="text/javascript">
+        function PageLoadForm() {
+            document.getElementById("textBuscar").focus();
+
+            //Este trozo de código funciona bien, pero no permite que se avance con la barra espaciadora
+            //var val = document.getElementById("textBuscar").value; //store the value of the element
+            //document.getElementById("textBuscar").value = ''; //clear the value of the element
+            //document.getElementById("textBuscar").value = val; //set that value back.
+
+            document.getElementById("textBuscar").selectionStart = document.getElementById("textBuscar").selectionEnd = 150000;
+
+        }
+    </script>
+
     @*Autocompletado deshabilitado*@
     <script type="text/javascript">
         $(document).ready(function () {
@@ -405,10 +420,13 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
         function ChangeHref(){
             var url = '@Url.Action("Index", "Seccion")';
-            var txtVal = $('#textBuscar').val();
+            //var txtVal = $('#textBuscar').val();
+            var txtVal = document.getElementById("textBuscar").value;
             var btn = 'SearchButton';
 
-            window.location.href = url + '/?button=' + btn + '&busqueda=' + txtVal;
+            alert('entré a botón buscar: ' + document.getElementById("textBuscar").value);
+
+            window.location.href = url + '/?button=' + btn + '&busqueda=' + document.getElementById("textBuscar").value;
    }
 
     </script>
@@ -507,11 +525,12 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
     </script>
 
-    @* Función para habilitar deshabilitar botón submit desde caja de texto de búsqueda
+    @* Función para habilitar deshabilitar botón Buscar desde caja de texto de búsqueda
         También controla el comportamiento de la caja de texto de búsqueda *@
     <script type="text/javascript">
         $(document).ready(function () {
-        $('#textBuscar').on('input change keyup keypress paste click', function (e) {
+            //$('#textBuscar').on('input change keyup keypress keydown paste click', function (e) {
+        $('#textBuscar').on('input change keydown paste click', function (e) {
 
             let cadena = document.getElementById("textBuscar").value;
 
@@ -557,15 +576,73 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 $('#SearchButton').addClass('btnDeshabilitado');
             }
 
-            if (e.type === 'keyup') {
+            if (e.type === 'keydown') {
 
-                var url = '@Url.Action("Index", "Seccion")';
-                var txtVal = $('#textBuscar').val();
+                //alert('entré con tecla: ' + e.keyCode);
 
-                window.location.href = url + '/?busqueda=' + $(this).val();
+                var keyCodePressed = e.keyCode;
 
-                document.getElementById('NombreSeccion').focus();
-            };
+                if (keyCodePressed == 13) {
+
+                    alert('entré a enter: ' + document.getElementById("textBuscar").value);
+
+                    //debugger;
+
+                    var url = '@Url.Action("Index", "Seccion")';
+
+                    window.location.href = url + '/?busqueda=' + document.getElementById("textBuscar").value;
+                }
+                else if (keyCodePressed == 8) {
+
+                    var subCadena = document.getElementById("textBuscar").value;
+
+                    subCadena = subCadena.substring(0, subCadena.length - 1);
+
+                    // Código para obtener el texto seleccionado en la caja de búsqueda
+                    //BEGIN*********************************************************************
+                    //function getSelectionText() {
+                        var textoSeleccionado = "";
+                        var activeEl = document.activeElement;
+                        var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+                        if (
+                            (activeElTagName == "textarea") || (activeElTagName == "input" &&
+                                /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+                            (typeof activeEl.selectionStart == "number")
+                        ) {
+                            textoSeleccionado = document.getElementById("textBuscar").value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+                        //} else if (window.getSelection) {
+                        //    text = window.getSelection().toString();
+                        //}
+                        //return text;
+                    }
+
+                    //document.onmouseup = document.onkeyup = document.onselectionchange = function () {
+                    //    //document.getElementById("textBuscar").value = getSelectionText();
+                    //    var textoSeleccionado = getSelectionText();
+
+                    //alert('texto seleccionado: ' + textoSeleccionado);
+
+                        if (document.getElementById("textBuscar").value == textoSeleccionado) {
+                            subCadena = '';
+                        }
+                    //};
+                    //END*********************************************************************
+
+                    //alert('entré a backspace: ' + keyCodePressed + ' Valor textbox: ' + subCadena);
+
+                    if (subCadena === '') {
+
+                        //alert('entré a subcadena vacía: ' + keyCodePressed + ' Valor textbox: ' + subCadena);
+
+                        alert('entré a subcadena vacía');
+
+                        var url = '@Url.Action("Index", "Seccion")';
+
+                        window.location.href = url + '/?busqueda=' + subCadena;
+                    }
+                }
+
+            }
 
         });
         });
