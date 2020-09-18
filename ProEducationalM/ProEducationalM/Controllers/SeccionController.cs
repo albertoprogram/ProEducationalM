@@ -167,6 +167,7 @@ namespace ProEducationalM.Controllers
                         TempData["countSecciones"] = 0;
                         TempData["paginaActual"] = 0;
                         TempData["ultimaPagina"] = 0;
+                        TempData["maximoPagina"] = Session["cantRegpagSeccion"].ToString();
                     }
 
                     TempData["Exito_Index_Seccion"] = "Devolución de datos con éxito";

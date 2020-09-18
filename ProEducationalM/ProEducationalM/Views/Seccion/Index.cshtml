@@ -125,13 +125,12 @@
 
             <div class="row">
                 <div class="col">
-                    @Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control" })
+                    @Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control", maxlength = "50", autofocus="autofocus" })
                 </div>
             </div>
 
             <button id="SearchButton" name="button" value="SearchButton" type="button"
-                    class="btn btn-primary"
-                    onclick="ChangeHref()">
+                    class="btn btn-primary" disabled onclick="ChangeHref()">
                 Buscar
             </button>
 
@@ -272,6 +271,13 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
     }
 
+    @*Autocompletado deshabilitado*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#textBuscar').attr("autocomplete", "off");
+        })
+    </script>
+
     @* Función que impide que se vaya atrás con las teclas Backspace o Delete *@
     <script type="text/javascript">
         window.addEventListener('keydown', function (e) {
@@ -401,6 +407,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             var url = '@Url.Action("Index", "Seccion")';
             var txtVal = $('#textBuscar').val();
             var btn = 'SearchButton';
+
             window.location.href = url + '/?button=' + btn + '&busqueda=' + txtVal;
    }
 
@@ -499,6 +506,102 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
    }
 
     </script>
+
+    @* Función para habilitar deshabilitar botón submit desde caja de texto de búsqueda
+        También controla el comportamiento de la caja de texto de búsqueda *@
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $('#textBuscar').on('input change keyup keypress paste click', function (e) {
+
+            let cadena = document.getElementById("textBuscar").value;
+
+            document.getElementById("textBuscar").value = TratamientoCaracteres(cadena);
+
+            $(this).val($(this).val().trimLeft());
+
+            $(this).val($(this).val().toUpperCase());
+
+            var longitudTexto = $(this).val().length;
+
+            if (longitudTexto > 50) {
+                $(this).val($(this).val().substr(0, 50));
+            }
+
+            @*if (e.which === 13) {
+
+                console.log('entré al enter del textbox');
+
+                var url = '@Url.Action("Index", "Seccion")';
+                var txtVal = $('#textBuscar').val();
+
+                window.location.href = url + '/?busqueda=' + $(this).val();
+            };*@
+
+            if ($('#textBuscar').val() != '') {
+
+                if ($('form').hasClass('disabled')) {
+                    $('#SearchButton').attr('disabled', 'disabled');
+                    $('#SearchButton').removeClass('btn-success');
+                    $('#SearchButton').addClass('btnDeshabilitado');
+                }
+                else {
+                    $('#SearchButton').removeAttr('disabled');
+                    $('#SearchButton').removeClass('btnDeshabilitado');
+                    $('#SearchButton').addClass('btn-success');
+                }
+
+            }
+            else {
+                $('#SearchButton').attr('disabled', 'disabled');
+                $('#SearchButton').removeClass('btn-success');
+                $('#SearchButton').addClass('btnDeshabilitado');
+            }
+
+            if (e.type === 'keyup') {
+
+                var url = '@Url.Action("Index", "Seccion")';
+                var txtVal = $('#textBuscar').val();
+
+                window.location.href = url + '/?busqueda=' + $(this).val();
+
+                document.getElementById('NombreSeccion').focus();
+            };
+
+        });
+        });
+
+    </script>
+
+    @* Función que permite deshabilitar formulario al momento de hacer submit *@
+    <script type="text/javascript">
+        $('form').submit(function (e) {
+
+            // if the form is disabled don't allow submit
+            if ($(this).hasClass('disabled')) {
+                e.preventDefault();
+                return;
+            }
+
+            $(this).addClass('disabled');
+
+            $('#SearchButton').addClass('btnDeshabilitado');
+
+            $('#SearchButton').removeClass('btn-success');
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#textBuscar').val() != '') {
+                $('#SearchButton').removeAttr('disabled');
+                $('#SearchButton').removeClass('btnDeshabilitado');
+                $('#SearchButton').addClass('btn-success');
+            }
+        });
+    </script>
+
+    <script src="~/Scripts/Generales/Caracteres.js"></script>
 
     @* Referencia a Bootstrap - Las siguientes 3 líneas *@
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>

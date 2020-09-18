@@ -252,9 +252,10 @@
         })
     </script>
 
+    @* Función para habilitar deshabilitar botón submit guardar desde caja de texto
+        También controla el comportamiento de la caja de texto de Paralelo *@
     <script type="text/javascript">
 
-        //Función para habilitar deshabilitar botón submit guardar desde caja de texto
         $('#NombreSeccion').on('input change keyup paste click', function (e) {
 
             let cadena = document.getElementById("NombreSeccion").value;
@@ -343,8 +344,8 @@
             $('#SaveButton').addClass('btnDeshabilitado');
         });
 
-                                                                                // $('.clearable').trigger("input");
-                                                                                // Uncomment the line above if you pre-fill values from LS or server
+                                                                                        // $('.clearable').trigger("input");
+                                                                                        // Uncomment the line above if you pre-fill values from LS or server
 
     </script>
 
