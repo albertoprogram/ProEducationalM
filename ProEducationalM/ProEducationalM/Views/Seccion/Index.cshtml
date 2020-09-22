@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col">
                     @*@Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control", maxlength = "50" })*@
-                    <input id="textBuscar" name="textBuscar" value="@Session["TextoBusquedaColumnSeccion"].ToString()" placeholder="Ingrese su búsqueda" maxlength="50" class="form-control" type="text" />
+                    <input id="textBuscar" name="textBuscar" value="@Session["TextoBusquedaColumnSeccion"].ToString()" placeholder="Ingrese su búsqueda" maxlength="50" class="form-control clearable" type="text" />
                 </div>
             </div>
 
@@ -424,7 +424,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             var txtVal = document.getElementById("textBuscar").value;
             var btn = 'SearchButton';
 
-            alert('entré a botón buscar: ' + document.getElementById("textBuscar").value);
+            //alert('entré a botón buscar: ' + document.getElementById("textBuscar").value);
 
             window.location.href = url + '/?button=' + btn + '&busqueda=' + document.getElementById("textBuscar").value;
    }
@@ -584,7 +584,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
                 if (keyCodePressed == 13) {
 
-                    alert('entré a enter: ' + document.getElementById("textBuscar").value);
+                    //alert('entré a enter: ' + document.getElementById("textBuscar").value);
 
                     //debugger;
 
@@ -634,7 +634,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
                         //alert('entré a subcadena vacía: ' + keyCodePressed + ' Valor textbox: ' + subCadena);
 
-                        alert('entré a subcadena vacía');
+                        //alert('entré a subcadena vacía');
 
                         var url = '@Url.Action("Index", "Seccion")';
 
@@ -676,6 +676,31 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 $('#SearchButton').addClass('btn-success');
             }
         });
+    </script>
+
+    @* Permite poner x en el input para borrar el texto que se escribió
+        Requiere agregar la clase CSS clearable de la cabecera al input 
+        que debe tener la x*@
+    <script type="text/javascript">
+
+        /**
+        * Clearable text inputs
+        */
+        function tog(v) { return v ? 'addClass' : 'removeClass'; }
+        $(document).on('input focus', '.clearable', function () {
+            $(this)[tog(this.value)]('x');
+        }).on('mousemove', '.x', function (e) {
+            $(this)[tog(this.offsetWidth - 18 < e.clientX - this.getBoundingClientRect().left)]('onX');
+        }).on('touchstart click', '.onX', function (ev) {
+            ev.preventDefault();
+            $(this).removeClass('x onX').val('').change();
+            $('#SearchButton').attr('disabled', 'disabled');
+            $('#SearchButton').removeClass('btn-success');
+            $('#SearchButton').addClass('btnDeshabilitado');
+        });
+
+        // $('.clearable').trigger("input");
+        // Uncomment the line above if you pre-fill values from LS or server
     </script>
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
