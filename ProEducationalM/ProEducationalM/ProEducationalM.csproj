@@ -153,6 +153,7 @@
     <Content Include="Views\Error\_ErrorPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Seccion\Index.cshtml" />
+    <Content Include="Scripts\Bootstrap\bootstrap-4.5.0-dist\js\popper.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

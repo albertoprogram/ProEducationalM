@@ -10,7 +10,7 @@ namespace ProEducationalM.Services
 {
     public class SeccionServices
     {
-        #region InsertCapitalPhase1
+        #region InsertSeccion
         public void InsertSeccion(Seccion seccion,
             out short idSeccionFromSQLServer,
             out bool errorYNFromSQLServer,

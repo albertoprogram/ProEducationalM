@@ -9,7 +9,7 @@
 <head>
     <title>Index</title>
 
-    @* Referencia a Bootstrap - Las siguientes 4 líneas *@
+    @* Referencia a Bootstrap 4 - Las siguientes 4 líneas *@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie-edge" />
@@ -32,18 +32,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             setTimeout(function () {
-                //$(".divMensaje").fadeOut(1500);
                 $("#successMessage").remove();
             }, 3000);
 
             setTimeout(function () {
-                //$(".divMensaje").fadeOut(1500);
                 $("#errorMessage").remove();
             }, 3000);
-
-            //setTimeout(function () {
-            //    $(".content2").fadeIn(1500);
-            //}, 6000);
         });
     </script>
 
@@ -100,6 +94,7 @@
 
 </head>
 <body onload="PageLoadForm()">
+    @* Content Start *@
     @using (Html.BeginForm(null, null, FormMethod.Get, new { id = "formIndexSeccion" }))
     {
 
@@ -172,15 +167,9 @@
                 <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
                 <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
                 <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                @*<div class="col-3">@Html.Label("maximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>*@
                 <div class="col-3">
-                    @*<label>
-                            Registros por página: <input id="maximoPagina" value="@TempData["maximoPagina"].ToString()"
-                                                         placeholder="Predeterminado: 5">
-                        </label>*@
                     <label>
                         Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
-//new SelectListItem() {Text = Session["cantRegpagSeccion"].ToString(),Value= Session["cantRegpagSeccion"].ToString(),Selected = true},
 new SelectListItem() {Text = "3",Value="3"},
 new SelectListItem() {Text = "5", Value= "5"},
 new SelectListItem() {Text = "10", Value = "10"},
@@ -191,7 +180,6 @@ new SelectListItem() {Text = "50", Value = "50"},
 new SelectListItem() {Text = "100", Value = "100"}
 },
 new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
-                        @*new { @class = "form-control", onchange = "this.form.submit();" })*@
                     </label>
                 </div>
             </div>
@@ -199,7 +187,6 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             <table class="table table-bordered">
                 <tr>
                     <th>
-                        @*@Html.DisplayNameFor(model => model.NombreSeccion)*@
                         <a href="javascript:void(0);" onclick="ChangeHrefColumnHeaderSeccion();">
                             <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
                             @{
@@ -272,16 +259,21 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
     }
 
+    @* End of content *@
+
+    @* Form load event *@
     <script type="text/javascript">
         function PageLoadForm() {
-            document.getElementById("textBuscar").focus();
 
-            //Este trozo de código funciona bien, pero no permite que se avance con la barra espaciadora
+            //Las siguientes dos líneas permiten colocar el foco (primera línea) y hacerlo al final del texto (segunda línea)
+            document.getElementById("textBuscar").focus();
+            document.getElementById("textBuscar").selectionStart = document.getElementById("textBuscar").selectionEnd = 150000;
+
+            //Este trozo de código (3 líneas) funciona bien para colocar el cursor al final del texto en un input,
+            //pero no permite que se avance con la barra espaciadora
             //var val = document.getElementById("textBuscar").value; //store the value of the element
             //document.getElementById("textBuscar").value = ''; //clear the value of the element
             //document.getElementById("textBuscar").value = val; //set that value back.
-
-            document.getElementById("textBuscar").selectionStart = document.getElementById("textBuscar").selectionEnd = 150000;
 
         }
     </script>
@@ -290,6 +282,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     <script type="text/javascript">
         $(document).ready(function () {
             $('#textBuscar').attr("autocomplete", "off");
+            $('#maximoPagina').attr("autocomplete", "off");
         })
     </script>
 
@@ -318,13 +311,6 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
         window.onpopstate = function () { history.go(1); };
     </script>
 
-    @*Autocompletado deshabilitado*@
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#maximoPagina').attr("autocomplete", "off");
-        })
-    </script>
-
     @* Control de habilitado y deshabilitado de botones de paginado *@
     <script type="text/javascript">
 
@@ -338,8 +324,6 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
         var buttonUNextPage = document.getElementById('UNextPage');
         var buttonUFirstPage = document.getElementById('UFirstPage');
         var buttonUPreviousPage = document.getElementById('UPreviousPage');
-
-        //debugger;
 
         if (('@(TempData["countSecciones"])' == '0')) {
 
@@ -420,11 +404,8 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
         function ChangeHref(){
             var url = '@Url.Action("Index", "Seccion")';
-            //var txtVal = $('#textBuscar').val();
             var txtVal = document.getElementById("textBuscar").value;
             var btn = 'SearchButton';
-
-            //alert('entré a botón buscar: ' + document.getElementById("textBuscar").value);
 
             window.location.href = url + '/?button=' + btn + '&busqueda=' + document.getElementById("textBuscar").value;
    }
@@ -529,7 +510,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
         También controla el comportamiento de la caja de texto de búsqueda *@
     <script type="text/javascript">
         $(document).ready(function () {
-            //$('#textBuscar').on('input change keyup keypress keydown paste click', function (e) {
+
         $('#textBuscar').on('input change keydown paste click', function (e) {
 
             let cadena = document.getElementById("textBuscar").value;
@@ -545,16 +526,6 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             if (longitudTexto > 50) {
                 $(this).val($(this).val().substr(0, 50));
             }
-
-            @*if (e.which === 13) {
-
-                console.log('entré al enter del textbox');
-
-                var url = '@Url.Action("Index", "Seccion")';
-                var txtVal = $('#textBuscar').val();
-
-                window.location.href = url + '/?busqueda=' + $(this).val();
-            };*@
 
             if ($('#textBuscar').val() != '') {
 
@@ -578,15 +549,9 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
             if (e.type === 'keydown') {
 
-                //alert('entré con tecla: ' + e.keyCode);
-
                 var keyCodePressed = e.keyCode;
 
-                if (keyCodePressed == 13) {
-
-                    //alert('entré a enter: ' + document.getElementById("textBuscar").value);
-
-                    //debugger;
+                if (keyCodePressed == 13 && $('#textBuscar').val() != '') {
 
                     var url = '@Url.Action("Index", "Seccion")';
 
@@ -610,17 +575,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                             (typeof activeEl.selectionStart == "number")
                         ) {
                             textoSeleccionado = document.getElementById("textBuscar").value.slice(activeEl.selectionStart, activeEl.selectionEnd);
-                        //} else if (window.getSelection) {
-                        //    text = window.getSelection().toString();
-                        //}
-                        //return text;
                     }
-
-                    //document.onmouseup = document.onkeyup = document.onselectionchange = function () {
-                    //    //document.getElementById("textBuscar").value = getSelectionText();
-                    //    var textoSeleccionado = getSelectionText();
-
-                    //alert('texto seleccionado: ' + textoSeleccionado);
 
                         if (document.getElementById("textBuscar").value == textoSeleccionado) {
                             subCadena = '';
@@ -628,13 +583,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                     //};
                     //END*********************************************************************
 
-                    //alert('entré a backspace: ' + keyCodePressed + ' Valor textbox: ' + subCadena);
-
                     if (subCadena === '') {
-
-                        //alert('entré a subcadena vacía: ' + keyCodePressed + ' Valor textbox: ' + subCadena);
-
-                        //alert('entré a subcadena vacía');
 
                         var url = '@Url.Action("Index", "Seccion")';
 
@@ -668,6 +617,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
         });
     </script>
 
+    @* Permite habilitar botón de búsqueda si hay texto en el textbox *@
     <script type="text/javascript">
         $(document).ready(function () {
             if ($('#textBuscar').val() != '') {
@@ -679,7 +629,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     </script>
 
     @* Permite poner x en el input para borrar el texto que se escribió
-        Requiere agregar la clase CSS clearable de la cabecera al input 
+        Requiere agregar la clase CSS clearable de la cabecera al input
         que debe tener la x*@
     <script type="text/javascript">
 
@@ -697,6 +647,11 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             $('#SearchButton').attr('disabled', 'disabled');
             $('#SearchButton').removeClass('btn-success');
             $('#SearchButton').addClass('btnDeshabilitado');
+
+            var url = '@Url.Action("Index", "Seccion")';
+
+            window.location.href = url + '/?busqueda=';
+
         });
 
         // $('.clearable').trigger("input");
@@ -705,7 +660,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
 
-    @* Referencia a Bootstrap - Las siguientes 3 líneas *@
+    @* Referencia a Bootstrap 4 - Las siguientes 3 líneas *@
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/popper.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>

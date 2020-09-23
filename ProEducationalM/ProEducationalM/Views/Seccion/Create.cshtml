@@ -10,7 +10,7 @@
 
     <title>Create</title>
 
-    @* Referencia a Bootstrap - Las siguientes 4 líneas *@
+    @* Referencia a Bootstrap 4 - Las siguientes 4 líneas *@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie-edge" />
@@ -30,18 +30,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
             setTimeout(function () {
-                //$(".divMensaje").fadeOut(1500);
                 $("#successMessage").remove();
             }, 3000);
 
             setTimeout(function () {
-                //$(".divMensaje").fadeOut(1500);
                 $("#errorMessage").remove();
             }, 3000);
-
-            //setTimeout(function () {
-            //    $(".content2").fadeIn(1500);
-            //}, 6000);
         });
     </script>
 
@@ -88,11 +82,11 @@
 
 </head>
 <body>
+    @* Content Start *@
+
     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCreateSeccion" }))
     {
         @Html.AntiForgeryToken()
-
-        <!-- ******************* EMPIEZA EL CONTENIDO ******************* -->
 
         <div class="container">
 
@@ -185,6 +179,8 @@
         </div>
     }
 
+    @* End of content *@
+
     @* Para limpiar / asignar valor de input en carga de página *@
     <script type="text/javascript">
         $('input[type="text"]').val('');
@@ -218,18 +214,6 @@
             }
         }, false);
     </script>
-
-    @* Función que impide volver atrás con el botón del navegador *@
-    @*<script type="text/javascript">
-            $().ready(function () {
-                if (document.referrer != 'http://localhost:8181/') {
-                    history.pushState(null, null, 'Create');
-                    window.addEventListener('popstate', function () {
-                        history.pushState(null, null, 'Create');
-                    });
-                }
-            });
-        </script>*@
 
     @* Función que impide volver atrás con el botón del navegador *@
     @* En Chrome funciona *@
@@ -336,8 +320,8 @@
             $('#SaveButton').addClass('btnDeshabilitado');
         });
 
-        // $('.clearable').trigger("input");
-        // Uncomment the line above if you pre-fill values from LS or server
+                // $('.clearable').trigger("input");
+                // Uncomment the line above if you pre-fill values from LS or server
 
     </script>
 
@@ -345,7 +329,7 @@
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
 
-    @* Referencia a Bootstrap - Las siguientes 3 líneas *@
+    @* Referencia a Bootstrap 4 - Las siguientes 3 líneas *@
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/popper.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
