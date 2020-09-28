@@ -164,12 +164,13 @@
             </div>
 
             <div class="row">
-                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                <div class="col-3">
+                <div class="col-2">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+                <div class="col-2">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+                <div class="col-2">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+                <div class="col-2">@Html.Label("registrosMostrados", "Registros Mostrados: " + TempData["countPageSecciones"].ToString())</div>
+                <div class="col-4">
                     <label>
-                        Registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
+                        Máximo de registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
 new SelectListItem() {Text = "3",Value="3"},
 new SelectListItem() {Text = "5", Value= "5"},
 new SelectListItem() {Text = "10", Value = "10"},
@@ -178,7 +179,7 @@ new SelectListItem() {Text = "20", Value = "20"},
 new SelectListItem() {Text = "30", Value = "30"},
 new SelectListItem() {Text = "50", Value = "50"},
 new SelectListItem() {Text = "100", Value = "100"}
-},
+                    },
 new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
                     </label>
                 </div>
@@ -218,10 +219,11 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             </table>
 
             <div class="row">
-                <div class="col-3">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-                <div class="col-3">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-3">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                <div class="col-3">@Html.Label("LabelmaximoPagina", "Registros por página : " + TempData["maximoPagina"].ToString())</div>
+                <div class="col-2">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
+                <div class="col-2">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
+                <div class="col-2">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
+                <div class="col-2">@Html.Label("registrosMostrados", "Registros Mostrados: " + TempData["countPageSecciones"].ToString())</div>
+                <div class="col-4">@Html.Label("LabelmaximoPagina", "Máximo de registros por página : " + TempData["maximoPagina"].ToString())</div>
             </div>
 
             <div class="row">

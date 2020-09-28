@@ -89,6 +89,7 @@ namespace ProEducationalM.Controllers
                 string originClass;
                 string originMethod;
                 int countFromSQLServer;
+                int countPageFromSQLServer;
                 
 
 
@@ -106,7 +107,8 @@ namespace ProEducationalM.Controllers
                     out errorMessageFromSQLServer,
                     out originClass,
                     out originMethod,
-                    out countFromSQLServer);
+                    out countFromSQLServer,
+                    out countPageFromSQLServer);
 
                 if (errorYNFromSQLServer == true)
                 {
@@ -129,6 +131,8 @@ namespace ProEducationalM.Controllers
                     if (SeccionModel.Count() > 0)
                     {
                         TempData["countSecciones"] = countFromSQLServer;
+
+                        TempData["countPageSecciones"] = countPageFromSQLServer;
 
                         TempData["ultimaPagina"] = (int)TempData["countSecciones"] / (int)Session["cantRegpagSeccion"];
 
@@ -165,6 +169,7 @@ namespace ProEducationalM.Controllers
                     else
                     {
                         TempData["countSecciones"] = 0;
+                        TempData["countPageSecciones"] = 0;
                         TempData["paginaActual"] = 0;
                         TempData["ultimaPagina"] = 0;
                         TempData["maximoPagina"] = Session["cantRegpagSeccion"].ToString();

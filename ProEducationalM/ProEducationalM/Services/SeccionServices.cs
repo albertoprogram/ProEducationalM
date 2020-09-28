@@ -135,7 +135,8 @@ namespace ProEducationalM.Services
             out string errorMessageFromSQLServer,
             out string originClass,
             out string originMethod,
-            out int countFromSQLServer)
+            out int countFromSQLServer,
+            out int countPageFromSQLServer)
         {
 
             using (var db = new ProEducationalMDBContext())
@@ -198,6 +199,13 @@ namespace ProEducationalM.Services
                     Direction = ParameterDirection.Output
                 };
 
+                var countPage = new SqlParameter
+                {
+                    ParameterName = "@countPage",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+
                 IEnumerable<Seccion> secciones = db.Database.SqlQuery<Seccion>("GetAllSecciones " +
                     "@pagina," +
                     "@cantidadRegistros," +
@@ -211,7 +219,8 @@ namespace ProEducationalM.Services
                     "@errorProcedure OUTPUT," +
                     "@errorLine OUTPUT," +
                     "@errorMessage OUTPUT," +
-                    "@count OUTPUT",
+                    "@count OUTPUT," +
+                    "@countPage OUTPUT",
                     new SqlParameter("@pagina", pagina),
                     new SqlParameter("@cantidadRegistros", cantidadRegistros),
                     new SqlParameter("@ultimaPaginaYN", ultimaPaginaYN),
@@ -224,7 +233,8 @@ namespace ProEducationalM.Services
                     errorProcedure,
                     errorLine,
                     errorMessage,
-                    count).ToList();
+                    count,
+                    countPage).ToList();
 
                 errorYNFromSQLServer = Convert.ToBoolean(errorYN.Value);
                 errorNumberFromSQLServer = Convert.ToInt32(errorNumber.Value);
@@ -234,6 +244,7 @@ namespace ProEducationalM.Services
                 errorLineFromSQLServer = Convert.ToInt32(errorLine.Value);
                 errorMessageFromSQLServer = errorMessage.Value.ToString();
                 countFromSQLServer = Convert.ToInt32(count.Value);
+                countPageFromSQLServer = Convert.ToInt32(countPage.Value);
 
                 originClass = this.GetType().Name;
                 originMethod = System.Reflection.MethodBase.GetCurrentMethod().Name;
