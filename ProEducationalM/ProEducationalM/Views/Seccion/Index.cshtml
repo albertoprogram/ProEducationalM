@@ -179,7 +179,7 @@ new SelectListItem() {Text = "20", Value = "20"},
 new SelectListItem() {Text = "30", Value = "30"},
 new SelectListItem() {Text = "50", Value = "50"},
 new SelectListItem() {Text = "100", Value = "100"}
-                    },
+},
 new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
                     </label>
                 </div>
@@ -187,6 +187,9 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
             <table class="table table-bordered">
                 <tr>
+                    <th>
+                        <input type="checkbox" name="checkBoxAll" id="checkBoxAll" class="custom-checkbox" />
+                    </th>
                     <th>
                         <a href="javascript:void(0);" onclick="ChangeHrefColumnHeaderSeccion();">
                             <span>@Html.DisplayNameFor(model => model.NombreSeccion)</span>
@@ -211,6 +214,9 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td id="checkboxes">
+                            <input type="checkbox" name="ID" value="@item.ID" class="custom-ckeckbox" />
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NombreSeccion)
                         </td>
@@ -658,6 +664,30 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
         // $('.clearable').trigger("input");
         // Uncomment the line above if you pre-fill values from LS or server
+    </script>
+
+    @* Script para marcar/desmarcar todos los checkboxes cuando se marca el de la cabecera *@
+    <script type="text/javascript">
+        function toggleChecked(status) {
+            $("#checkboxes input").each(function () {
+                // Set the checked status of each to match the
+                // checked status of the check all checkbox:
+                $(this).prop("checked", status);
+            });
+        }
+
+        $(document).ready(function () {
+
+            //Set the default value of the global checkbox to true:
+            $("#checkBoxAll").prop('checked', false);
+
+            // Attach the call to toggleChecked to the
+            // click event of the global checkbox:
+            $("#checkBoxAll").click(function () {
+                var status = $("#checkBoxAll").prop('checked');
+                toggleChecked(status);
+            });
+        });
     </script>
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
