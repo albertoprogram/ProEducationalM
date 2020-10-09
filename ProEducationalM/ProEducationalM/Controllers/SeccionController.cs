@@ -90,7 +90,7 @@ namespace ProEducationalM.Controllers
                 string originMethod;
                 int countFromSQLServer;
                 int countPageFromSQLServer;
-                
+
 
 
                 var SeccionModel = seccionServices.GetAllSecciones((int)Session["pagSeccion"],
@@ -201,6 +201,14 @@ namespace ProEducationalM.Controllers
             }
 
         }
+
+        //// POST
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Index(Seccion List)
+        //{
+        //    return View();
+        //}
 
         // GET
         public ActionResult Create()

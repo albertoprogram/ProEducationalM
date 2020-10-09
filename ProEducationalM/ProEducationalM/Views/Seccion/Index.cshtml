@@ -185,6 +185,15 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <button id="UMultipleItemsSelected" name="button" value="UMultipleItemsSelected" type="button" class="btn btn-danger"
+                            onclick="GetCheckBoxesChecked()">
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+
             <table class="table table-bordered">
                 <tr>
                     <th>
@@ -688,6 +697,25 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 toggleChecked(status);
             });
         });
+    </script>
+
+    @* Obtener todos los checkboxes marcados en la página *@
+    <script type="text/javascript">
+
+        function GetCheckBoxesChecked() {
+
+            let valoresCheck = [];
+
+            $("input[type=checkbox]:checked").each(function () {
+                //cada elemento seleccionado
+                valoresCheck.push(this.value);
+                // alert($(this).val());
+            });
+
+            alert(valoresCheck);
+
+        }
+
     </script>
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
