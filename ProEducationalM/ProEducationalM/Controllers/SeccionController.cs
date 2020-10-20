@@ -202,13 +202,13 @@ namespace ProEducationalM.Controllers
 
         }
 
-        //// POST
-        //[HttpPost]
+        // POST
+        [HttpPost]
         //[ValidateAntiForgeryToken]
-        //public ActionResult Index(Seccion List)
-        //{
-        //    return View();
-        //}
+        public ActionResult Index(long[] data)
+        {
+            return View();
+        }
 
         // GET
         public ActionResult Create()

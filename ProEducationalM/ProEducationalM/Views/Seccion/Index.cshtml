@@ -704,15 +704,28 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
         function GetCheckBoxesChecked() {
 
-            let valoresCheck = [];
+            var data = [];
 
             $("input[type=checkbox]:checked").each(function () {
                 //cada elemento seleccionado
-                valoresCheck.push(this.value);
+                data.push(this.value);
                 // alert($(this).val());
             });
 
-            alert(valoresCheck);
+            //alert(data);
+
+            var uri = '@Url.Action("Index","Seccion")';
+
+            //var uri = '/Seccion/Index';
+
+            //var arr = [4, 8, 15, 16, 23, 42];
+
+            $.ajax({
+                url: '/Seccion/Index',
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8'
+            });
 
         }
 
@@ -721,7 +734,8 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     <script src="~/Scripts/Generales/Caracteres.js"></script>
 
     @* Referencia a Bootstrap 4 - Las siguientes 3 líneas *@
-    <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>
+    @*<script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/jquery-3.5.1.slim.min.js"></script>*@
+    <script src="~/Scripts/JQuery/jquery-3.5.1.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/popper.min.js"></script>
     <script src="~/Scripts/Bootstrap/bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
 </body>
