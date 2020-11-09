@@ -36,6 +36,7 @@ namespace ProEducationalM
             Session["lastPageSeccionYN"] = false;
             Session["ColumnSeccionIndexSeccionOrder"] = "ASC";
             Session["TextoBusquedaColumnSeccion"] = "";
+            Session["IDsEliminarSeccion"] = "";
         }
     }
 }

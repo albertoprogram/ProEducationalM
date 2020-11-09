@@ -714,14 +714,14 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
             //alert(data);
 
-            var uri = '@Url.Action("Index","Seccion")';
+            var uri = '@Url.Action("Delete","Seccion")';
 
             //var uri = '/Seccion/Index';
 
             //var arr = [4, 8, 15, 16, 23, 42];
 
             $.ajax({
-                url: '/Seccion/Index',
+                url: '/Seccion/Delete',
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json; charset=utf-8'

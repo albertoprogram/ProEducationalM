@@ -205,8 +205,35 @@ namespace ProEducationalM.Controllers
         // POST
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Index(long[] data)
+        public ActionResult Delete(string[] data)
         {
+            Session["IDsEliminarSeccion"] = string.Join(",", data);
+
+            SeccionServices seccionServices = new SeccionServices();
+
+            short registrosEliminadosFromSQLServer;
+            bool errorYNFromSQLServer;
+            int errorNumberFromSQLServer;
+            int errorSeverityFromSQLServer;
+            int errorStatusFromSQLServer;
+            string errorProcedureFromSQLServer;
+            int errorLineFromSQLServer;
+            string errorMessageFromSQLServer;
+            string originClass;
+            string originMethod;
+
+            seccionServices.DeleteSecciones(Session["IDsEliminarSeccion"].ToString(),
+                out registrosEliminadosFromSQLServer,
+            out errorYNFromSQLServer,
+            out errorNumberFromSQLServer,
+            out errorSeverityFromSQLServer,
+            out errorStatusFromSQLServer,
+            out errorProcedureFromSQLServer,
+            out errorLineFromSQLServer,
+            out errorMessageFromSQLServer,
+            out originClass,
+            out originMethod);
+
             return View();
         }
 
@@ -335,5 +362,8 @@ namespace ProEducationalM.Controllers
 
             return View();
         }
+
+
+
     }
 }
