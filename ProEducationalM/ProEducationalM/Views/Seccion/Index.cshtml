@@ -568,11 +568,52 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
                 var keyCodePressed = e.keyCode;
 
+                //var keyCodePressed = e.which;
+
                 if (keyCodePressed == 13 && $('#textBuscar').val() != '') {
+
+                    //console.log('Entré al enter');
+
+                    //alert('Estamos en el enter');
+
+                    @*var url = '@Url.Action("Index", "Seccion")';*@
+
+                    //var txtVal = document.getElementById("textBuscar").value;
+                    var txtVal = $('#textBuscar').val();
+                    var btn = 'SearchButton';
 
                     var url = '@Url.Action("Index", "Seccion")';
 
-                    window.location.href = url + '/?busqueda=' + document.getElementById("textBuscar").value;
+                    //console.log('txtVal: ' + txtVal + ' btn: ' + btn + ' jqueryVal: ' + $('#textBuscar').val());
+
+                    //alert('txtVal: ' + txtVal + ' btn: ' + btn + ' jqueryVal: ' + $('#textBuscar').val());
+
+                    //debugger;
+
+                    //window.location.href = url + '/?busqueda=' + document.getElementById("textBuscar").value;
+                    //window.location.href = url + '/?busqueda=' + $('#textBuscar').val();
+
+                    //alert('justo antes de enviar la request');
+                    //console.log('justo antes de enviar la request');
+                    //debugger;
+
+                    //window.location.href = url + '/?busqueda=' + txtVal;
+                    var dataString = 'busqueda=' + txtVal + '&button=' + btn;
+                    $.ajax({
+                        url: '/Seccion/Index',
+                        type: 'GET',
+                        data: dataString,
+                        success: function () {
+
+                            //alert("Ha sido ejecutada la acción.");
+                            //alert(data); //recuperando las variables
+
+                        }
+                    });
+
+                    //alert('justo después de enviar la request');
+                    //console.log('justo después de enviar la request');
+                    //debugger;
                 }
                 else if (keyCodePressed == 8) {
 
