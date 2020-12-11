@@ -118,6 +118,26 @@
 
             <p>@Html.ActionLink("Create New", "Create")</p>
 
+            <div class="row" id="successMessage">
+                @if (TempData["Exito"] != null)
+                {
+                    <div class="col-12 col-xl-5"></div>
+                    <div class="col-12 col-xl-7  alert alert-success">
+                        @TempData["Exito"]
+                    </div>
+                }
+            </div>
+
+            <div class="row" id="errorMessage">
+                @if (TempData["ErrorMensaje"] != null)
+                {
+                    <div class="col-12 col-xl-5"></div>
+                    <div class="col-12 col-xl-7 alert alert-danger">
+                        @TempData["ErrorMensaje"]
+                    </div>
+                }
+            </div>
+
             <div class="row">
                 <div class="col">
                     @*@Html.TextBox("textBuscar", Session["TextoBusquedaColumnSeccion"].ToString(), new { placeholder = "Ingrese su búsqueda", @class = "form-control", maxlength = "50" })*@

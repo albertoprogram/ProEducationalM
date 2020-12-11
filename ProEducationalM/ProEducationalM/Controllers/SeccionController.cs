@@ -207,6 +207,8 @@ namespace ProEducationalM.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(string[] data)
         {
+            ExceptionHandling exceptionHandling = new ExceptionHandling();
+
             Session["IDsEliminarSeccion"] = string.Join(",", data);
 
             SeccionServices seccionServices = new SeccionServices();
@@ -233,6 +235,27 @@ namespace ProEducationalM.Controllers
             out errorMessageFromSQLServer,
             out originClass,
             out originMethod);
+
+            if (errorYNFromSQLServer == true)
+            {
+                exceptionHandling.HandleSQLException(
+                            errorNumberFromSQLServer,
+                            errorSeverityFromSQLServer,
+                            errorStatusFromSQLServer,
+                            errorProcedureFromSQLServer,
+                            errorLineFromSQLServer,
+                            errorMessageFromSQLServer,
+                            originClass,
+                            originMethod,
+                            Session["IDsEliminarSeccion"].ToString());
+
+                TempData["ErrorMensaje"] = "Error al intentar eliminar la información.";
+
+            }
+            else
+            {
+                TempData["Exito"] = "Se ha eliminado la información con éxito";
+            }
 
             return View();
         }
