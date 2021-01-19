@@ -8,6 +8,7 @@ namespace ProEducationalM.Services
 {
     public class ExceptionHandling
     {
+        #region HandleSQLException
         public void HandleSQLException(
             int errorNumberFromSQLServer,
             int errorSeverityFromSQLServer,
@@ -50,7 +51,9 @@ namespace ProEducationalM.Services
                 file.Close();
             }
         }
+        #endregion
 
+        #region HandleGeneralException
         public void HandleGeneralException(
             string errorMessage,
             string errorInnerException,
@@ -86,5 +89,6 @@ namespace ProEducationalM.Services
             }
 
         }
+        #endregion
     }
 }

@@ -11,6 +11,7 @@ namespace ProEducationalM.Controllers
 {
     public class SeccionController : Controller
     {
+        #region GET Index
         // GET: Seccion
         public ActionResult Index(string button, string maximoPagina, string ColumnaSeccionOrden, string busqueda)
         {
@@ -201,7 +202,9 @@ namespace ProEducationalM.Controllers
             }
 
         }
+        #endregion
 
+        #region POST Delete
         // POST
         [HttpPost]
         //[ValidateAntiForgeryToken]
@@ -259,13 +262,17 @@ namespace ProEducationalM.Controllers
 
             return View();
         }
+        #endregion
 
+        #region GET Create
         // GET
         public ActionResult Create()
         {
             return View();
         }
+        #endregion
 
+        #region POST Create
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -385,8 +392,6 @@ namespace ProEducationalM.Controllers
 
             return View();
         }
-
-
-
+        #endregion
     }
 }

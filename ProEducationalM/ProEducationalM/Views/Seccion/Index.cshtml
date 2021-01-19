@@ -5,9 +5,11 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
 <head>
     <title>Index</title>
+
+    <link rel="icon" href="@Url.Content("~/favicon.ico")" />
 
     @* Referencia a Bootstrap 4 - Las siguientes 4 líneas *@
     <meta charset="utf-8" />
@@ -76,6 +78,7 @@
         /* Remove IE default X */
     </style>
 
+    @* Estilo CSS de botón deshabilitado *@
     <style type="text/css">
         .btnDeshabilitado {
             background-color: #BDBDBD;
@@ -548,7 +551,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     <script type="text/javascript">
         $(document).ready(function () {
 
-        $('#textBuscar').on('input change keydown paste click', function (e) {
+        $('#textBuscar').on('input change keydown paste click keypress', function (e) {
 
             let cadena = document.getElementById("textBuscar").value;
 
@@ -584,13 +587,15 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 $('#SearchButton').addClass('btnDeshabilitado');
             }
 
-            if (e.type === 'keydown') {
+            if (e.type == 'keydown' || e.type == 'keypress') {
 
                 var keyCodePressed = e.keyCode;
 
-                //var keyCodePressed = e.which;
+                var code = (e.keyCode ? e.keyCode : e.which);
 
-                if (keyCodePressed == 13 && $('#textBuscar').val() != '') {
+                //var keyCodePressed = e.which;
+                //if (keyCodePressed == 13 && $('#textBuscar').val() != '')
+                if (code == 13 && $('#textBuscar').val() != '') {
 
                     //console.log('Entré al enter');
 
@@ -618,8 +623,11 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                     //debugger;
 
                     //window.location.href = url + '/?busqueda=' + txtVal;
+                    //Siguiente linea es la original y funciona en desarrollo:
+                    //var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     $.ajax({
+                        //url: '/Seccion/Index',
                         url: '/Seccion/Index',
                         type: 'GET',
                         data: dataString,
