@@ -35,11 +35,11 @@
         $(document).ready(function () {
             setTimeout(function () {
                 $("#successMessage").remove();
-            }, 3000);
+            }, 5000);
 
             setTimeout(function () {
                 $("#errorMessage").remove();
-            }, 3000);
+            }, 5000);
         });
     </script>
 
@@ -551,7 +551,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     <script type="text/javascript">
         $(document).ready(function () {
 
-        $('#textBuscar').on('input change keydown paste click keypress', function (e) {
+        $('#textBuscar').on('input change keydown paste click', function (e) {
 
             let cadena = document.getElementById("textBuscar").value;
 
@@ -587,7 +587,7 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 $('#SearchButton').addClass('btnDeshabilitado');
             }
 
-            if (e.type == 'keydown' || e.type == 'keypress') {
+            if (e.type == 'keydown') {
 
                 var keyCodePressed = e.keyCode;
 
@@ -627,14 +627,12 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                     //var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     $.ajax({
-                        //url: '/Seccion/Index',
                         url: '/Seccion/Index',
                         type: 'GET',
                         data: dataString,
                         success: function () {
 
-                            //alert("Ha sido ejecutada la acción.");
-                            //alert(data); //recuperando las variables
+                            //location.reload(true);
 
                         }
                     });
@@ -793,7 +791,12 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 url: '/Seccion/Delete',
                 type: 'POST',
                 data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf-8'
+                contentType: 'application/json; charset=utf-8',
+                success: function () {
+
+                    window.location.reload();
+
+                }
             });
 
         }
