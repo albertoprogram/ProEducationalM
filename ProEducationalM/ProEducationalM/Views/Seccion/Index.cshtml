@@ -7,6 +7,10 @@
 
 <html lang="es">
 <head>
+    <!--Las siguientes dos líneas son para limpiar caché-->
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
     <title>Index</title>
 
     <link rel="icon" href="@Url.Content("~/favicon.ico")" />
@@ -549,138 +553,134 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
     @* Función para habilitar deshabilitar botón Buscar desde caja de texto de búsqueda
         También controla el comportamiento de la caja de texto de búsqueda *@
     <script type="text/javascript">
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-        $('#textBuscar').on('input change keydown paste click', function (e) {
+                $('#textBuscar').on('input change keydown paste click', function (e) {
 
-            let cadena = document.getElementById("textBuscar").value;
+                let cadena = document.getElementById("textBuscar").value;
 
-            document.getElementById("textBuscar").value = TratamientoCaracteres(cadena);
+                document.getElementById("textBuscar").value = TratamientoCaracteres(cadena);
 
-            $(this).val($(this).val().trimLeft());
+                $(this).val($(this).val().trimLeft());
 
-            $(this).val($(this).val().toUpperCase());
+                $(this).val($(this).val().toUpperCase());
 
-            var longitudTexto = $(this).val().length;
+                var longitudTexto = $(this).val().length;
 
-            if (longitudTexto > 50) {
-                $(this).val($(this).val().substr(0, 50));
-            }
+                if (longitudTexto > 50) {
+                    $(this).val($(this).val().substr(0, 50));
+                }
 
-            if ($('#textBuscar').val() != '') {
+                if ($('#textBuscar').val() != '') {
 
-                if ($('form').hasClass('disabled')) {
+                    if ($('form').hasClass('disabled')) {
+                        $('#SearchButton').attr('disabled', 'disabled');
+                        $('#SearchButton').removeClass('btn-success');
+                        $('#SearchButton').addClass('btnDeshabilitado');
+                    }
+                    else {
+                        $('#SearchButton').removeAttr('disabled');
+                        $('#SearchButton').removeClass('btnDeshabilitado');
+                        $('#SearchButton').addClass('btn-success');
+                    }
+
+                }
+                else {
                     $('#SearchButton').attr('disabled', 'disabled');
                     $('#SearchButton').removeClass('btn-success');
                     $('#SearchButton').addClass('btnDeshabilitado');
                 }
-                else {
-                    $('#SearchButton').removeAttr('disabled');
-                    $('#SearchButton').removeClass('btnDeshabilitado');
-                    $('#SearchButton').addClass('btn-success');
+
+                    if (e.type == 'keydown') {
+
+                    var keyCodePressed = e.keyCode;
+
+                        var code = e.which;
+
+                        if ((code == 13 || keyCodePressed == 13) && $('#textBuscar').val() != '') {
+
+
+                        var txtVal = $('#textBuscar').val();
+                        var btn = 'SearchButton';
+
+                        var url = '@Url.Action("Index", "Seccion")';
+
+                        var dataString = 'busqueda=' + txtVal + '&button=' + btn;
+                        $.ajax({
+                            url: '/Seccion/Index',
+                            type: 'GET',
+                            data: dataString,
+                            success: function () {
+
+                            }
+                        });
+
+                    }
+                    else if (keyCodePressed == 8) {
+
+                        var subCadena = document.getElementById("textBuscar").value;
+
+                        subCadena = subCadena.substring(0, subCadena.length - 1);
+
+                        // Código para obtener el texto seleccionado en la caja de búsqueda
+                        //BEGIN*********************************************************************
+                        //function getSelectionText() {
+                            var textoSeleccionado = "";
+                            var activeEl = document.activeElement;
+                            var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+                            if (
+                                (activeElTagName == "textarea") || (activeElTagName == "input" &&
+                                    /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+                                (typeof activeEl.selectionStart == "number")
+                            ) {
+                                textoSeleccionado = document.getElementById("textBuscar").value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+                        }
+
+                            if (document.getElementById("textBuscar").value == textoSeleccionado) {
+                                subCadena = '';
+                            }
+                        //};
+                        //END*********************************************************************
+
+                        if (subCadena === '') {
+
+                            var url = '@Url.Action("Index", "Seccion")';
+
+                            window.location.href = url + '/?busqueda=' + subCadena;
+                        }
+                    }
+
                 }
 
-            }
-            else {
-                $('#SearchButton').attr('disabled', 'disabled');
-                $('#SearchButton').removeClass('btn-success');
-                $('#SearchButton').addClass('btnDeshabilitado');
-            }
+            });
+            });
 
-            if (e.type == 'keydown') {
+    </script>
 
-                var keyCodePressed = e.keyCode;
+    @* Al presionar enter en la caja de búsqueda *@
+    @*<script type="text/javascript">
 
-                var code = (e.keyCode ? e.keyCode : e.which);
+            $("#textBuscar").keydown(function (event) {
 
-                //var keyCodePressed = e.which;
-                //if (keyCodePressed == 13 && $('#textBuscar').val() != '')
-                if (code == 13 && $('#textBuscar').val() != '') {
+                if (event.which == 13) {
 
-                    //console.log('Entré al enter');
-
-                    //alert('Estamos en el enter');
-
-                    @*var url = '@Url.Action("Index", "Seccion")';*@
-
-                    //var txtVal = document.getElementById("textBuscar").value;
                     var txtVal = $('#textBuscar').val();
                     var btn = 'SearchButton';
 
-                    var url = '@Url.Action("Index", "Seccion")';
-
-                    //console.log('txtVal: ' + txtVal + ' btn: ' + btn + ' jqueryVal: ' + $('#textBuscar').val());
-
-                    //alert('txtVal: ' + txtVal + ' btn: ' + btn + ' jqueryVal: ' + $('#textBuscar').val());
-
-                    //debugger;
-
-                    //window.location.href = url + '/?busqueda=' + document.getElementById("textBuscar").value;
-                    //window.location.href = url + '/?busqueda=' + $('#textBuscar').val();
-
-                    //alert('justo antes de enviar la request');
-                    //console.log('justo antes de enviar la request');
-                    //debugger;
-
-                    //window.location.href = url + '/?busqueda=' + txtVal;
-                    //Siguiente linea es la original y funciona en desarrollo:
-                    //var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     var dataString = 'busqueda=' + txtVal + '&button=' + btn;
                     $.ajax({
                         url: '/Seccion/Index',
                         type: 'GET',
                         data: dataString,
                         success: function () {
-
-                            //location.reload(true);
-
                         }
                     });
 
-                    //alert('justo después de enviar la request');
-                    //console.log('justo después de enviar la request');
-                    //debugger;
-                }
-                else if (keyCodePressed == 8) {
-
-                    var subCadena = document.getElementById("textBuscar").value;
-
-                    subCadena = subCadena.substring(0, subCadena.length - 1);
-
-                    // Código para obtener el texto seleccionado en la caja de búsqueda
-                    //BEGIN*********************************************************************
-                    //function getSelectionText() {
-                        var textoSeleccionado = "";
-                        var activeEl = document.activeElement;
-                        var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
-                        if (
-                            (activeElTagName == "textarea") || (activeElTagName == "input" &&
-                                /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
-                            (typeof activeEl.selectionStart == "number")
-                        ) {
-                            textoSeleccionado = document.getElementById("textBuscar").value.slice(activeEl.selectionStart, activeEl.selectionEnd);
-                    }
-
-                        if (document.getElementById("textBuscar").value == textoSeleccionado) {
-                            subCadena = '';
-                        }
-                    //};
-                    //END*********************************************************************
-
-                    if (subCadena === '') {
-
-                        var url = '@Url.Action("Index", "Seccion")';
-
-                        window.location.href = url + '/?busqueda=' + subCadena;
-                    }
                 }
 
-            }
+            });
 
-        });
-        });
-
-    </script>
+        </script>*@
 
     @* Función que permite deshabilitar formulario al momento de hacer submit *@
     <script type="text/javascript">
