@@ -214,12 +214,89 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
 
             <div class="row">
                 <div class="col">
-                    <button id="UMultipleItemsSelected" name="button" value="UMultipleItemsSelected" type="button" class="btn btn-danger"
-                            onclick="GetCheckBoxesChecked()">
+                    @*<button id="UMultipleItemsSelected" name="button" value="UMultipleItemsSelected" type="button" class="btn btn-danger"
+                                data-toggle="modal" data-target="#exampleModal" onclick="GetCheckBoxesChecked()">
+                            Eliminar
+                        </button>*@
+                    <button id="UMultipleItemsSelected" name="button" value="UMultipleItemsSelected" type="button" class="btn btn-danger">
                         Eliminar
                     </button>
                 </div>
             </div>
+
+            <!-- Modal -->
+            @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                TEXTO DE PRUEBA
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            <fieldset>
+                @*<legend style="color:orangered">Click On Satyaprakash Bootstrap PopUp</legend>*@
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            @*<button id="btnShowModal" type="button"
+                                        class="btn btn-sm btn-default pull-left col-lg-11 button button4">
+                                    Satya Modals
+                                </button>*@
+
+                            <div class="modal fade" tabindex="-1" id="loginModal"
+                                 data-keyboard="false" data-backdrop="static">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            @*<button type="button" class="close" data-dismiss="modal">
+                                                    ×
+                                                </button>*@
+                                            <h4 class="modal-title">¿Está seguro de eliminar la información?</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                @*<div class="form-group">
+                                                        <input class="form-control" type="text"
+                                                               placeholder="Login Username" id="inputUserName" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control" placeholder="Login Password"
+                                                               type="password" id="inputPassword" />
+                                                    </div>*@
+                                                <h6 class="modal-title">Esta acción es irreversible</h6>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            @*<button type="submit" class="btn btn-primary button button4">Sign</button>*@
+                                            <button type="button" id="btnHideModal" class="btn btn-light button button4">
+                                                Cancelar
+                                            </button>
+                                            <button type="button" id="btnSendModal" class="btn btn-danger button button4">
+                                                Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
 
             <table class="table table-bordered">
                 <tr>
@@ -779,7 +856,11 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 // alert($(this).val());
             });
 
-            //alert(data);
+            //alert(data.length);
+
+            if (data.length > 0) {
+
+                //alert(data);
 
             var uri = '@Url.Action("Delete","Seccion")';
 
@@ -799,8 +880,87 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                 }
             });
 
+            }
+
         }
 
+    </script>
+
+    @* Modal y acciones al presionar los checks de los elementos *@
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#UMultipleItemsSelected').attr('disabled', 'disabled');
+            $('#UMultipleItemsSelected').addClass('btnDeshabilitado');
+
+            $("input[type=checkbox]").click(function () {
+                $('#UMultipleItemsSelected').removeAttr('disabled');
+                $('#UMultipleItemsSelected').removeClass('btnDeshabilitado');
+
+
+                var cheks = [];
+
+                $("input[type=checkbox]:checked").each(function () {
+                    //cada elemento seleccionado
+                    cheks.push(this.value);
+                    // alert($(this).val());
+                });
+
+                //alert(data.length);
+
+                if (cheks.length > 0) {
+
+                    $('#UMultipleItemsSelected').removeAttr('disabled');
+                    $('#UMultipleItemsSelected').removeClass('btnDeshabilitado');
+                    //$('#UMultipleItemsSelected').addClass('btn-success');
+
+                }
+                else {
+                    $('#UMultipleItemsSelected').attr('disabled', 'disabled');
+                    $('#UMultipleItemsSelected').addClass('btnDeshabilitado');
+                }
+            });
+
+            $("#btnShowModal").click(function () {
+                //alert('Show');
+                $("#loginModal").modal('show');
+            });
+
+            $("#btnHideModal").click(function () {
+                //alert('hide');
+                $("#loginModal").modal('hide');
+            });
+
+            $("#UMultipleItemsSelected").click(function () {
+                //alert('Show');
+                $("#loginModal").modal('show');
+            });
+
+            $("#btnSendModal").click(function () {
+                //alert('Send');
+
+                var data = [];
+
+                $("input[type=checkbox]:checked").each(function () {
+                    //cada elemento seleccionado
+                    data.push(this.value);
+                    // alert($(this).val());
+                });
+
+                //alert(data.length);
+
+                if (data.length > 0) {
+
+                    $("#loginModal").modal('hide');
+
+                    GetCheckBoxesChecked();
+
+                }
+                else {
+                    //Enviar mensaje indicando que no se ha seleccionado ningún elemento para eliminar
+                }
+            });
+        });
     </script>
 
     <script src="~/Scripts/Generales/Caracteres.js"></script>
