@@ -214,6 +214,8 @@ namespace ProEducationalM.Controllers
 
             Session["IDsEliminarSeccion"] = string.Join(",", data);
 
+            Session["IDsEliminarSeccion"] = Session["IDsEliminarSeccion"].ToString().Replace("on,", "");
+
             SeccionServices seccionServices = new SeccionServices();
 
             short registrosEliminadosFromSQLServer;
