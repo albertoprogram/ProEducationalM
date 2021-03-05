@@ -225,8 +225,8 @@ namespace ProEducationalM.Services
                     new SqlParameter("@pagina", pagina),
                     new SqlParameter("@cantidadRegistros", cantidadRegistros),
                     new SqlParameter("@ultimaPaginaYN", ultimaPaginaYN),
-                    new SqlParameter("@columnaSeccionOrden",columnaSeccionOrden),
-                    new SqlParameter("@textoBusqueda",textoBusqueda),
+                    new SqlParameter("@columnaSeccionOrden", columnaSeccionOrden),
+                    new SqlParameter("@textoBusqueda", textoBusqueda),
                     errorYN,
                     errorNumber,
                     errorSeverity,
@@ -268,9 +268,14 @@ namespace ProEducationalM.Services
             out string originClass,
             out string originMethod)
         {
+            ExceptionHandling exceptionHandling = new ExceptionHandling();
+
+            exceptionHandling.WriteMessageInLog("I entered in Method DeleteSecciones - SeccionServices.cs - Line 273");
 
             using (var db = new ProEducationalMDBContext())
             {
+                exceptionHandling.WriteMessageInLog("I entered in using var db in DeleteSecciones - SeccionServices.cs - Line 277");
+
                 var registrosEliminados = new SqlParameter
                 {
                     ParameterName = "@registrosEliminados",
@@ -329,26 +334,41 @@ namespace ProEducationalM.Services
                     Direction = ParameterDirection.Output
                 };
 
-                db.Database.ExecuteSqlCommand("DeleteSecciones " +
-                    "@secciones," +
-                    "@registrosEliminados OUTPUT," +
-                    "@errorYN OUTPUT," +
-                    "@errorNumber OUTPUT," +
-                    "@errorSeverity OUTPUT," +
-                    "@errorStatus OUTPUT," +
-                    "@errorProcedure OUTPUT," +
-                    "@errorLine OUTPUT," +
-                    "@errorMessage OUTPUT",
-                    new SqlParameter("@secciones", secciones),
-                    registrosEliminados,
-                    errorYN,
-                    errorNumber,
-                    errorSeverity,
-                    errorStatus,
-                    errorProcedure,
-                    errorLine,
-                    errorMessage
-                    );
+                exceptionHandling.WriteMessageInLog("Just before calling ExecuteSqlCommand - Data to send: " + secciones + " DeleteSecciones - SeccionServices.cs - Line 337");
+
+                try
+                {
+
+
+                    db.Database.ExecuteSqlCommand("DeleteSecciones " +
+                        "@secciones," +
+                        "@registrosEliminados OUTPUT," +
+                        "@errorYN OUTPUT," +
+                        "@errorNumber OUTPUT," +
+                        "@errorSeverity OUTPUT," +
+                        "@errorStatus OUTPUT," +
+                        "@errorProcedure OUTPUT," +
+                        "@errorLine OUTPUT," +
+                        "@errorMessage OUTPUT",
+                        new SqlParameter("@secciones", secciones),
+                        registrosEliminados,
+                        errorYN,
+                        errorNumber,
+                        errorSeverity,
+                        errorStatus,
+                        errorProcedure,
+                        errorLine,
+                        errorMessage
+                        );
+                }
+                catch (Exception ex)
+                {
+                    exceptionHandling.WriteMessageInLog("Inside the catch block - Just after calling ExecuteSqlCommand - DeleteSecciones - SeccionServices.cs - Line 366");
+
+                    exceptionHandling.WriteMessageInLog("Error received: " + ex.Message);
+                }
+
+                exceptionHandling.WriteMessageInLog("Just after calling ExecuteSqlCommand - DeleteSecciones - SeccionServices.cs - Line 369");
 
                 registrosEliminadosFromSQLServer = Convert.ToInt16(registrosEliminados.Value);
                 errorYNFromSQLServer = Convert.ToBoolean(errorYN.Value);

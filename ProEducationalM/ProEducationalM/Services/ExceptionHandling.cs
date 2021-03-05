@@ -90,5 +90,30 @@ namespace ProEducationalM.Services
 
         }
         #endregion
+
+        #region WriteMessageInLog
+        public void WriteMessageInLog(string message)
+        {
+            string applicationPath;
+
+            applicationPath = AppDomain.CurrentDomain.BaseDirectory;
+
+            applicationPath = applicationPath + "Messages" + @"\";
+
+            string fileNameLog = "ProEduMessageLog_" +
+                DateTime.Now.ToString("yyyy-MM-dd") +
+                ".log";
+
+            string fullPathLog = applicationPath + fileNameLog;
+
+            message = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + " " + message;
+
+            using (StreamWriter file = new StreamWriter(fullPathLog, true))
+            {
+                file.WriteLine(message);
+                file.Close();
+            }
+        }
+        #endregion
     }
 }

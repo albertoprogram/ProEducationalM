@@ -212,6 +212,8 @@ namespace ProEducationalM.Controllers
         {
             ExceptionHandling exceptionHandling = new ExceptionHandling();
 
+            exceptionHandling.WriteMessageInLog("I entered in ActionResult Delete HTTP POST - Controller Seccion - Line 215");
+
             Session["IDsEliminarSeccion"] = string.Join(",", data);
 
             Session["IDsEliminarSeccion"] = Session["IDsEliminarSeccion"].ToString().Replace("on,", "");
@@ -229,6 +231,8 @@ namespace ProEducationalM.Controllers
             string originClass;
             string originMethod;
 
+            exceptionHandling.WriteMessageInLog("Just before calling seccionServices.DeleteSecciones - Controller Seccion - Line 234");
+
             seccionServices.DeleteSecciones(Session["IDsEliminarSeccion"].ToString(),
                 out registrosEliminadosFromSQLServer,
             out errorYNFromSQLServer,
@@ -241,8 +245,12 @@ namespace ProEducationalM.Controllers
             out originClass,
             out originMethod);
 
+            exceptionHandling.WriteMessageInLog("Just after calling seccionServices.DeleteSecciones - Controller Seccion - Line 248");
+
             if (errorYNFromSQLServer == true)
             {
+                exceptionHandling.WriteMessageInLog("I entered in errorYNFromSQLServer == true - Controller Seccion - Line 252");
+
                 exceptionHandling.HandleSQLException(
                             errorNumberFromSQLServer,
                             errorSeverityFromSQLServer,
@@ -259,9 +267,12 @@ namespace ProEducationalM.Controllers
             }
             else
             {
+                exceptionHandling.WriteMessageInLog("I entered in errorYNFromSQLServer == false - Controller Seccion - Line 270");
+
                 TempData["Exito"] = "Se ha eliminado la información con éxito";
             }
 
+            exceptionHandling.WriteMessageInLog("Just before calling return View() - Controller Seccion - Line 275");
             return View();
         }
         #endregion
