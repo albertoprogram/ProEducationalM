@@ -123,7 +123,12 @@
                 </div>
             </div>
 
-            <p>@Html.ActionLink("Nuevo Paralelo", "Create",null,new { @class = "form-control btn btn-primary"})</p>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <p>@Html.ActionLink("Nuevo Paralelo", "Create", null, new { @class = "form-control btn btn-primary float-left" })</p>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
 
             <div class="row" id="successMessage">
                 @if (TempData["Exito"] != null)
@@ -167,32 +172,35 @@
 
             <div class="row">
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                @*<div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-1 order-1">*@
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
                     <button id="UFirstPage" name="button" value="UFirstPage" type="button" class="btn btn-outline-primary"
-                            onclick="ChangeHrefBtnFirstPage()">
-                        Primera
+                            onclick="ChangeHrefBtnFirstPage()" title="Primera Página">
+                        <
                     </button>
                 </div>
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="UPreviousPage" name="button" value="UPreviousPage" type="button" class="btn btn-primary"
-                            onclick="ChangeHrefBtnPreviousPage()">
-                        << Anterior
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                    <button id="UPreviousPage" name="button" value="UPreviousPage" type="button" class="btn btn-outline-primary"
+                            onclick="ChangeHrefBtnPreviousPage()" title="Página Anterior">
+                        <<
                     </button>
                 </div>
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="UNextPage" name="button" value="UNextPage" type="button" class="btn btn-primary"
-                            onclick="ChangeHrefBtnNextPage()">
-                        Siguiente >>
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                    <button id="UNextPage" name="button" value="UNextPage" type="button" class="btn btn-outline-primary"
+                            onclick="ChangeHrefBtnNextPage()" title="Siguiente Página">
+                        >>
                     </button>
                 </div>
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="ULastPage" name="button" value="ULastPage" type="button" class="btn btn-primary"
-                            onclick="ChangeHrefBtnLastPage()">
-                        Última
+                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                    <button id="ULastPage" name="button" value="ULastPage" type="button" class="btn btn-outline-primary"
+                            onclick="ChangeHrefBtnLastPage()" title="Última Página">
+                        >
                     </button>
                 </div>
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-8 col-xl-8"></div>
 
             </div>
 
@@ -354,27 +362,27 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
             <div class="row">
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="FirstPage" name="button" value="FirstPage" type="button" class="btn btn-primary"
+                    <button id="FirstPage" name="button" value="FirstPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnFirstPage()">
                         Primera
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="PreviousPage" name="button" value="PreviousPage" type="button" class="btn btn-primary"
+                    <button id="PreviousPage" name="button" value="PreviousPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnPreviousPage()">
-                        << Anterior
+                        <<
                     </button>
                 </div>
 
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="NextPage" name="button" value="NextPage" type="button" class="btn btn-primary"
+                    <button id="NextPage" name="button" value="NextPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnNextPage()">
-                        Siguiente >>
+                        >>
                     </button>
                 </div>
                 <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
-                    <button id="LastPage" name="button" value="LastPage" type="button" class="btn btn-primary"
+                    <button id="LastPage" name="button" value="LastPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnLastPage()">
                         Última
                     </button>
