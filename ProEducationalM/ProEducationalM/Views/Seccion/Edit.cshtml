@@ -1,0 +1,25 @@
+﻿@model ProEducationalM.Models.Seccion
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    <div>
+        @{
+            string registroSeleccionado = Model.ID.ToString() + " - " + Model.NombreSeccion;
+        }
+        <h1>El Paralelo seleccionado es: <b>@registroSeleccionado</b></h1>
+        <button id="ReturnButton" type="button" class="btn btn-link btn-block"
+                onclick="location.href='@Url.Action("Index","Seccion")'">
+            Volver
+        </button>
+    </div>
+</body>
+</html>

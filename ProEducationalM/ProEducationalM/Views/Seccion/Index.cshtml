@@ -173,27 +173,27 @@
             <div class="row">
 
                 @*<div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-1 order-1">*@
-                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="UFirstPage" name="button" value="UFirstPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnFirstPage()" title="Primera Página">
                         <
                     </button>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="UPreviousPage" name="button" value="UPreviousPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnPreviousPage()" title="Página Anterior">
                         <<
                     </button>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="UNextPage" name="button" value="UNextPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnNextPage()" title="Siguiente Página">
                         >>
                     </button>
                 </div>
-                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="ULastPage" name="button" value="ULastPage" type="button" class="btn btn-outline-primary"
                             onclick="ChangeHrefBtnLastPage()" title="Última Página">
                         >
@@ -205,13 +205,14 @@
             </div>
 
             <div class="row">
-                <div class="col-2">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-                <div class="col-2">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-2">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                <div class="col-2">@Html.Label("registrosMostrados", "Registros Mostrados: " + TempData["countPageSecciones"].ToString())</div>
-                <div class="col-4">
-                    <label>
-                        Máximo de registros por página: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
+                <div class="col-6 order-first col-sm-6 col-md-3 col-lg-2 col-xl-2"><b>@Html.Label("totalRegistros", "Registros: " + @TempData["countSecciones"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</b></div>
+                <div class="col-6 order-3 col-sm-6 col-md-2 col-lg-2 col-xl-2"><b>@Html.Label("paginaActual", "Pág. Actual: " + TempData["paginaActual"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</b></div>
+                <div class="col-6 order-4 col-sm-6 col-md-2 col-lg-2 col-xl-2"><b>@Html.Label("ultimaPagina", "Última Pág.: " + TempData["ultimaPagina"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</b></div>
+                <div class="col-6 order-2 col-sm-6 col-md-2 col-lg-2 col-xl-2"><b>@Html.Label("registrosMostrados", "Viendo: " + TempData["countPageSecciones"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</b></div>
+                <div class="col-12 order-5 col-sm-12 col-md-3 col-lg-4 col-xl-4">
+                    <b>
+                        <label>
+                            Registros por Pág: @Html.DropDownList("maximoPagina", new List<SelectListItem> {
 new SelectListItem() {Text = "3",Value="3"},
 new SelectListItem() {Text = "5", Value= "5"},
 new SelectListItem() {Text = "10", Value = "10"},
@@ -221,8 +222,9 @@ new SelectListItem() {Text = "30", Value = "30"},
 new SelectListItem() {Text = "50", Value = "50"},
 new SelectListItem() {Text = "100", Value = "100"}
 },
-new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" })
-                    </label>
+new { @class = "form-control LabelGeneral", onchange = "ChangeHrefDropDownListCantRegPag()" })
+                        </label>
+                    </b>
                 </div>
             </div>
 
@@ -347,46 +349,49 @@ new { @class = "form-control", onchange = "ChangeHrefDropDownListCantRegPag()" }
                         <td>
                             @Html.DisplayFor(modelItem => item.NombreSeccion)
                         </td>
+                        <td>@Html.ActionLink("Editar", "Edit", new { ID = item.ID, nombreSeccion = item.NombreSeccion })</td>
                     </tr>
                 }
             </table>
 
             <div class="row">
-                <div class="col-2">@Html.Label("totalRegistros", "Total de registros: " + TempData["countSecciones"].ToString())</div>
-                <div class="col-2">@Html.Label("paginaActual", "Página actual: " + TempData["paginaActual"].ToString())</div>
-                <div class="col-2">@Html.Label("ultimaPagina", "Última página: " + TempData["ultimaPagina"].ToString())</div>
-                <div class="col-2">@Html.Label("registrosMostrados", "Registros Mostrados: " + TempData["countPageSecciones"].ToString())</div>
-                <div class="col-4">@Html.Label("LabelmaximoPagina", "Máximo de registros por página : " + TempData["maximoPagina"].ToString())</div>
+                <div class="col-6 order-first col-sm-6 col-md-3 col-lg-2 col-xl-2">@Html.Label("totalRegistros", "Registros: " + TempData["countSecciones"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</div>
+                <div class="col-6 order-3 col-sm-6 col-md-2 col-lg-2 col-xl-2">@Html.Label("paginaActual", "Pág. Actual: " + TempData["paginaActual"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</div>
+                <div class="col-6 order-4 col-sm-6 col-md-2 col-lg-2 col-xl-2">@Html.Label("ultimaPagina", "Última Pág.: " + TempData["ultimaPagina"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</div>
+                <div class="col-6 order-2 col-sm-6 col-md-2 col-lg-2 col-xl-2">@Html.Label("registrosMostrados", "Viendo: " + TempData["countPageSecciones"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</div>
+                <div class="col-12 order-5 col-sm-12 col-md-3 col-lg-4 col-xl-4">@Html.Label("LabelmaximoPagina", "Registros por Pág.: " + TempData["maximoPagina"].ToString(), htmlAttributes: new { @class = "control-label LabelGeneral" })</div>
             </div>
 
             <div class="row">
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="FirstPage" name="button" value="FirstPage" type="button" class="btn btn-outline-primary"
-                            onclick="ChangeHrefBtnFirstPage()">
-                        Primera
+                            onclick="ChangeHrefBtnFirstPage()" title="Primer Página">
+                        <
                     </button>
                 </div>
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="PreviousPage" name="button" value="PreviousPage" type="button" class="btn btn-outline-primary"
-                            onclick="ChangeHrefBtnPreviousPage()">
+                            onclick="ChangeHrefBtnPreviousPage()" title="Página Anterior">
                         <<
                     </button>
                 </div>
 
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="NextPage" name="button" value="NextPage" type="button" class="btn btn-outline-primary"
-                            onclick="ChangeHrefBtnNextPage()">
+                            onclick="ChangeHrefBtnNextPage()" title="Siguiente Página">
                         >>
                     </button>
                 </div>
-                <div class="col-12 order-last col-sm-12 order-last col-md-2 order-1 col-lg-2 order-1 col-xl-2 order-1">
+                <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1">
                     <button id="LastPage" name="button" value="LastPage" type="button" class="btn btn-outline-primary"
-                            onclick="ChangeHrefBtnLastPage()">
-                        Última
+                            onclick="ChangeHrefBtnLastPage()" title="Última Página">
+                        >
                     </button>
                 </div>
+
+                <div class="col-md-4 col-lg-8 col-xl-8"></div>
 
             </div>
 

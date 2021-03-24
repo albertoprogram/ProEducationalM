@@ -406,5 +406,17 @@ namespace ProEducationalM.Controllers
             return View();
         }
         #endregion
+
+        #region GET Edit
+        public ActionResult Edit(Int16 ID, string nombreSeccion)
+        {
+            Seccion seccion = new Seccion();
+
+            seccion.ID = ID;
+            seccion.NombreSeccion = nombreSeccion;
+
+            return View(seccion);
+        }
+        #endregion
     }
 }

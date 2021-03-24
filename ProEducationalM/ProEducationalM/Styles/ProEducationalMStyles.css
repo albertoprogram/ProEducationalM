@@ -61,6 +61,13 @@ div[class^='col-'] {
     font-size:x-large;
 }
 
+.LabelGeneral {
+    /*color: #0FC6EA;*/
+    color: #8aa7b8;
+    font-weight: bold;
+    /*font-weight: bold;*/
+}
+
 .TxtNombreSeccion {
     font-size: large;
 }
